@@ -1,66 +1,123 @@
-Porta8 Imóveis
-Início
-Bem-vindo ao
-Portal do Colaborador
-Tudo que você precisa, em um só lugar.
-notifications
-Recado importante: Edite este espaço com os avisos do mês para sua equipe.
-Minha área
-receipt_long
-Holerites
-lock Acesso individual
-flight
-Solicitação de férias
-event_busy
-Faltas e atrasos
-laptop
-Meus equipamentos
-Serviços internos
-meeting_room
-Reservar sala
-shopping_bag
-Materiais e insumos
-person_add
-Abrir vaga
-Cultura e desenvolvimento
-fact_check
-Políticas
-volunteer_activism
-Benefícios
-fact_check
-Regras de ouro
-school
-Trilha Porta8
-Canais seguros
-mood
-Pesquisa de clima
-campaign
-Canal de denúncias
-format_quote Reflexão do mês
-"Cole aqui a reflexão ou frase do mês que você escolher para inspirar sua equipe."
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal do Colaborador · Porta8 Imóveis</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
 
-— Autor da frase
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo.png" alt="Porta8 Imóveis">
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Início</a>
+  </div>
+  <div class="nav-right">
+  </div>
+</nav>
 
-cake Aniversariantes do mês
-AB
-Ana Beatriz
-05 de junho
-🎂
-CR
-Carlos Roberto
-18 de junho
-🎂
-ML
-Maria Luiza
-27 de junho
-🎂
-✏️ Edite este bloco mensalmente com os aniversariantes reais.
+<div class="hero">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div class="hero-eyebrow">Bem-vindo ao</div>
+    <div class="hero-title">Portal do Colaborador</div>
+    <div class="hero-sub">Tudo que você precisa, em um só lugar.</div>
+  </div>
+</div>
 
-notifications Recados importantes
-📌 Adicione aqui um recado importante para a equipe.
-01 jun 2026
-📌 Outro recado pode ser colocado aqui também.
-01 jun 2026
-✏️ Edite este bloco com os recados do momento.
+<div class="quick-bar">
+</div>
 
-Portal do Colaborador · Porta8 Imóveis · porta8.com.br
+<div class="container">
+
+  <div style="display: grid; grid-template-columns: 1fr 320px; gap: 1.5rem; align-items: start; margin-top: 1.5rem;">
+
+    <!-- COLUNA PRINCIPAL -->
+    <div>
+
+      <!-- AVISO -->
+      <div class="aviso">
+        <span class="material-icons aviso-icon">notifications</span>
+        <div class="aviso-text">
+          <strong>Recado importante:</strong> Edite este espaço com os avisos do mês para sua equipe.
+        </div>
+      </div>
+
+      <!-- MINHA ÁREA -->
+      <div class="section-label">Minha área</div>
+      <div class="cards-grid">
+        <a href="pages/holerites.html" class="card">
+          <div class="card-icon laranja"><span class="material-icons">receipt_long</span></div>
+          <div class="card-title">Holerites</div>
+          <div class="card-badge"><span class="material-icons" style="font-size:11px;">lock</span> Acesso individual</div>
+        </a>
+        <a href="pages/ferias.html" class="card">
+          <div class="card-icon azul"><span class="material-icons">flight</span></div>
+          <div class="card-title">Solicitação de férias</div>
+        </a>
+        <a href="pages/ausencias.html" class="card">
+          <div class="card-icon azul"><span class="material-icons">event_busy</span></div>
+          <div class="card-title">Faltas e atrasos</div>
+        </a>
+        <a href="pages/equipamentos.html" class="card">
+          <div class="card-icon marinho"><span class="material-icons">laptop</span></div>
+          <div class="card-title">Meus equipamentos</div>
+        </a>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SERVIÇOS -->
+      <div class="section-label">Serviços internos</div>
+      <div class="cards-grid">
+        <a href="pages/sala.html" class="card">
+          <div class="card-icon azul"><span class="material-icons">meeting_room</span></div>
+          <div class="card-title">Reservar sala</div>
+        </a>
+        <a href="pages/materiais.html" class="card">
+          <div class="card-icon laranja"><span class="material-icons">shopping_bag</span></div>
+          <div class="card-title">Materiais e insumos</div>
+        </a>
+        <a href="pages/vaga.html" class="card">
+          <div class="card-icon marinho"><span class="material-icons">person_add</span></div>
+          <div class="card-title">Abrir vaga</div>
+        </a>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- CULTURA -->
+      <div class="section-label">Cultura e desenvolvimento</div>
+      <div class="cards-grid">
+        <a href="pages/politicas.html" class="card">
+          <div class="card-icon azul"><span class="material-icons">fact_check</span></div>
+          <div class="card-title">Políticas</div>
+        </a>
+        <a href="pages/beneficios.html" class="card">
+          <div class="card-icon laranja"><span class="material-icons">volunteer_activism</span></div>
+          <div class="card-title">Benefícios</div>
+        </a>
+        <a href="pages/regras.html" class="card">
+          <div class="card-icon marinho"><span class="material-icons">fact_check</span></div>
+          <div class="card-title">Regras de ouro</div>
+        </a>
+        <a href="pages/trilha.html" class="card">
+          <div class="card-icon verde"><span class="material-icons">school</span></div>
+          <div class="card-title">Trilha Porta8</div>
+        </a>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- CANAIS SEGUROS -->
+      <div class="section-label">Canais seguros</div>
+      <div class="cards-grid">
+        <a href="pages/clima.html" class="card">
+          <div class="card-icon marinho"><span class="material-icons">mood</span></div>
+          <div class="card-title">Pesquisa de clima</div>
+        </a>
+        <a href="pages/denuncia.html" class="card">
+          <div class="card-icon laranja"><span cl
