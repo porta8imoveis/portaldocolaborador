@@ -56,7 +56,7 @@ body {
 /* HERO */
 .hero {
   background: var(--azul);
-  padding: 3rem 2rem 4rem;
+  padding: 1.5rem 2rem;
   color: #fff;
 }
 .hero-eyebrow { color: var(--laranja); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
@@ -66,7 +66,7 @@ body {
 /* CARDS RÁPIDOS */
 .quick-bar {
   background: var(--marinho);
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
@@ -119,6 +119,8 @@ body {
   color: var(--texto);
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 10px;
   transition: border-color 0.2s, transform 0.15s;
   cursor: pointer;
