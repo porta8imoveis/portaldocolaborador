@@ -27,9 +27,72 @@
   <div class="aviso" style="margin-bottom: 1.5rem;">
     <i class="ti ti-info-circle aviso-icon"></i>
     <div class="aviso-text">
-      Preencha o formulário abaixo e clique em "Abrir no Google Agenda" — o evento será criado com os dados já preenchidos!
+      Preencha o formulário abaixo e clique em "Abrir no Google Agenda". O evento será criado com os dados já preenchidos — <strong>basta clicar em Salvar</strong> para confirmar sua reserva!
     </div>
   </div>
+
+  <div style="background:#fff; border:1px solid #D8E4FC; border-radius:12px; padding:1.25rem; max-width:480px; margin-bottom:1.5rem;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.25rem; padding-bottom:1rem; border-bottom:1px solid #D8E4FC;">
+      <span class="material-icons" style="color:#0057FF;">meeting_room</span>
+      <span style="font-size:15px; font-weight:600; color:#082450;">Solicitar reserva de sala</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <div>
+        <label style="font-size:12px; color:#5A6B8A; display:block; margin-bottom:4px;">Assunto da reunião</label>
+        <input type="text" id="assunto" placeholder="Ex: Reunião de equipe comercial" style="width:100%; padding:8px 12px; font-size:13px; border-radius:8px; border:1px solid #D8E4FC; font-family:Poppins,sans-serif;">
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div>
+          <label style="font-size:12px; color:#5A6B8A; display:block; margin-bottom:4px;">Data</label>
+          <input type="date" id="data" style="width:100%; padding:8px 12px; font-size:13px; border-radius:8px; border:1px solid #D8E4FC; font-family:Poppins,sans-serif;">
+        </div>
+        <div>
+          <label style="font-size:12px; color:#5A6B8A; display:block; margin-bottom:4px;">Horário</label>
+          <input type="time" id="hora" step="900" style="width:100%; padding:8px 12px; font-size:13px; border-radius:8px; border:1px solid #D8E4FC; font-family:Poppins,sans-serif;">
+        </div>
+      </div>
+      <div>
+        <label style="font-size:12px; color:#5A6B8A; display:block; margin-bottom:4px;">Duração</label>
+        <select id="duracao" style="width:100%; padding:8px 12px; font-size:13px; border-radius:8px; border:1px solid #D8E4FC; font-family:Poppins,sans-serif;">
+          <option value="15">15 minutos</option>
+          <option value="30">30 minutos</option>
+          <option value="45">45 minutos</option>
+          <option value="60">1 hora</option>
+          <option value="75">1h15</option>
+          <option value="90">1h30</option>
+          <option value="105">1h45</option>
+          <option value="120">2 horas</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:12px; color:#5A6B8A; display:block; margin-bottom:4px;">Convidados (e-mails separados por vírgula)</label>
+        <input type="text" id="convidados" placeholder="Ex: joao@porta8.com.br, maria@porta8.com.br" style="width:100%; padding:8px 12px; font-size:13px; border-radius:8px; border:1px solid #D8E4FC; font-family:Poppins,sans-serif;">
+      </div>
+      <button onclick="abrirAgenda()" style="background:#0057FF; color:#fff; border:none; border-radius:8px; padding:10px 20px; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; justify-content:center; width:100%; font-family:Poppins,sans-serif;">
+        <span class="material-icons" style="font-size:18px;">calendar_month</span> Abrir no Google Agenda
+      </button>
+    </div>
+  </div>
+
+  <script>
+  function abrirAgenda() {
+    var assunto = document.getElementById('assunto').value || 'Reserva de Sala';
+    var data = document.getElementById('data').value;
+    var hora = document.getElementById('hora').value;
+    var duracao = parseInt(document.getElementById('duracao').value);
+    var convidados = document.getElementById('convidados').value;
+    if (!data || !hora) { alert('Por favor, preencha a data e o horário.'); return; }
+    var inicio = data.replace(/-/g,'') + 'T' + hora.replace(':','') + '00';
+    var d = new Date(data + 'T' + hora);
+    d.setMinutes(d.getMinutes() + duracao);
+    var fimH = String(d.getHours()).padStart(2,'0');
+    var fimM = String(d.getMinutes()).padStart(2,'0');
+    var fim = data.replace(/-/g,'') + 'T' + fimH + fimM + '00';
+    var url = 'https://calendar.google.com/calendar/r/eventedit?text=' + encodeURIComponent(assunto) + '&dates=' + inicio + '/' + fim + '&add=' + encodeURIComponent('c_230bdd11909ce06ae7f8587dc6f9f22b5e318fcf93b2a4b8ca2d939b27a8e207@group.calendar.google.com');
+    if (convidados) url += '&invite=' + encodeURIComponent(convidados);
+    window.open(url, '_blank');
+  }
+  </script>
 
   <div style="background:#fff; border:1px solid #D8E4FC; border-radius:12px; padding:1.25rem; max-width:480px; margin-bottom:1.5rem;">
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.25rem; padding-bottom:1rem; border-bottom:1px solid #D8E4FC;">
