@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nossa Biblioteca · Portal do Colaborador</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 16px;
+      margin-top: 1rem;
+    }
+    .book-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .book-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.13);
+    }
+    .book-cover {
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+    }
+    .book-info {
+      padding: 12px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .book-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a2e4a;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .book-author {
+      font-size: 11px;
+      color: #6b7280;
+      flex: 1;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .book-btn {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--azul);
+      background: none;
+      border: 1.5px solid var(--azul);
+      border-radius: 20px;
+      padding: 5px 10px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+    }
+    .book-btn:hover { background: var(--azul); color: #fff; }
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 28px 24px 24px;
+      position: relative;
+      animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: #f3f4f6;
+      border: none;
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: #6b7280;
+    }
+    .modal-cover-wrap {
+      width: 90px; height: 126px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 44px;
+      margin: 0 auto 16px;
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.15);
+    }
+    .modal-title {
+      font-size: 15px; font-weight: 700;
+      color: #1a2e4a;
+      text-align: center; margin-bottom: 4px; line-height: 1.4;
+    }
+    .modal-author {
+      font-size: 12px; color: #6b7280;
+      text-align: center; margin-bottom: 16px;
+    }
+    .modal-summary {
+      font-size: 13px; line-height: 1.8;
+      color: #374151; text-align: justify;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 14px; margin-bottom: 20px;
+    }
+    .modal-borrow-btn {
+      display: block; width: 100%;
+      background: var(--azul); color: #fff;
+      border: none; border-radius: 8px;
+      padding: 12px; font-size: 14px; font-weight: 600;
+      cursor: pointer; text-align: center; text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .modal-borrow-btn:hover { opacity: 0.88; }
+    .form-section {
+      background: #f8f9fb;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+    .form-section iframe {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      min-height: 700px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="modal-overlay" id="modal" onclick="fecharModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="fecharModal()">
+      <span class="material-icons" style="font-size:18px;">close</span>
+    </button>
+    <div class="modal-cover-wrap" id="modal-cover">📚</div>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-author" id="modal-author"></div>
+    <div class="modal-summary" id="modal-summary"></div>
+    <a href="#emprestar" class="modal-borrow-btn" onclick="fecharModal()">
+      <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">bookmark_add</span>
+      Quero emprestar este livro
+    </a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div class="nav-links" style="margin-bottom:1rem;">
+          <a href="../index.html" style="color:#fff; font-size:13px; font-weight:500; text-decoration:none; opacity:0.8;">← Início</a>
+        </div>
+        <div class="hero-eyebrow">Cultura e desenvolvimento</div>
+        <div class="hero-title">Nossa Biblioteca</div>
+        <div class="hero-sub">Conheça os livros disponíveis e registre seu empréstimo.</div>
+      </div>
+      <img src="../assets/logo-branca (1).png" alt="Porta8 Imóveis" style="height:60px; max-width:140px; object-fit:contain; opacity:0.9;">
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 2rem; margin-bottom: 3rem;">
+
+  <div style="background:#e8f0fe; border-radius:10px; padding:14px 18px; display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+    <span class="material-icons" style="color:var(--azul); flex-shrink:0;">info</span>
+    <p style="font-size:13px; color:#1a2e4a; margin:0; line-height:1.6;">
+      Clique em qualquer livro para ver o resumo. Para emprestar, use o formulário no final da página. Você e a Thais receberão um e-mail de confirmação e um lembrete na data de devolução.
+    </p>
+  </div>
+
+  <div class="section-label">Acervo disponível</div>
+  <div class="book-grid">
+
+    <div class="book-card" onclick="abrirModal(0)">
+      <div class="book-cover" style="background:#dbeafe;">📘</div>
+      <div class="book-info">
+        <div class="book-title">Lei do Inquilinato Comentada, Interpretada e Aplicada</div>
+        <div class="book-author">Misael Montenegro Filho · 2025</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(1)">
+      <div class="book-cover" style="background:#ffedd5;">📙</div>
+      <div class="book-info">
+        <div class="book-title">O Fascinante Império de Steve Jobs</div>
+        <div class="book-author">Michael Moritz · 2010</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(2)">
+      <div class="book-cover" style="background:#dcfce7;">📗</div>
+      <div class="book-info">
+        <div class="book-title">Construindo Uma Vida</div>
+        <div class="book-author">Sérgio Augusto de Andrade · 2006</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(3)">
+      <div class="book-cover" style="background:#fce7f3;">📕</div>
+      <div class="book-info">
+        <div class="book-title">Marketing Direto ao Vivo no Brasil</div>
+        <div class="book-author">Silvio Lefèvre · 1994</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(4)">
+      <div class="book-cover" style="background:#dbeafe;">📘</div>
+      <div class="book-info">
+        <div class="book-title">Marketing Imobiliário</div>
+        <div class="book-author">Bruno Lessa · 2018</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(5)">
+      <div class="book-cover" style="background:#ffedd5;">📙</div>
+      <div class="book-info">
+        <div class="book-title">Marketing da Promoção e Merchandising</div>
+        <div class="book-author">Zenone e Buairide · 2006</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(6)">
+      <div class="book-cover" style="background:#dcfce7;">📗</div>
+      <div class="book-info">
+        <div class="book-title">A Chave da Virada</div>
+        <div class="book-author">Marcello Niek e Bruno Raso · 2024</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(7)">
+      <div class="book-cover" style="background:#fce7f3;">📕</div>
+      <div class="book-info">
+        <div class="book-title">Gatilhos Mentais</div>
+        <div class="book-author">Gustavo Ferreira · 2019</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(8)">
+      <div class="book-cover" style="background:#dbeafe;">📘</div>
+      <div class="book-info">
+        <div class="book-title">A Jornada de Compra do Imóvel</div>
+        <div class="book-author">Bruno Lessa · 2019</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(9)">
+      <div class="book-cover" style="background:#ffedd5;">📙</div>
+      <div class="book-info">
+        <div class="book-title">Marketing de Relacionamento</div>
+        <div class="book-author">Bruno Lessa · 2018</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(10)">
+      <div class="book-cover" style="background:#dcfce7;">📗</div>
+      <div class="book-info">
+        <div class="book-title">As Armas da Persuasão</div>
+        <div class="book-author">Robert B. Cialdini · 2012</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(11)">
+      <div class="book-cover" style="background:#fce7f3;">📕</div>
+      <div class="book-info">
+        <div class="book-title">PNL Memorização</div>
+        <div class="book-author">Sirlei Bernardes · 2004</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(12)">
+      <div class="book-cover" style="background:#dbeafe;">📘</div>
+      <div class="book-info">
+        <div class="book-title">Excelência no Marketing de Guerrilha</div>
+        <div class="book-author">Jay Conrad Levinson · 1994</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(13)">
+      <div class="book-cover" style="background:#ffedd5;">📙</div>
+      <div class="book-info">
+        <div class="book-title">Não Tenha Medo de Ser Chefe</div>
+        <div class="book-author">Bruce Tulgan · 2019</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(14)">
+      <div class="book-cover" style="background:#dcfce7;">📗</div>
+      <div class="book-info">
+        <div class="book-title">As 5 Linguagens do Amor</div>
+        <div class="book-author">Gary Chapman · 2013</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(15)">
+      <div class="book-cover" style="background:#fce7f3;">📕</div>
+      <div class="book-info">
+        <div class="book-title">Chegou a Hora de Decolar</div>
+        <div class="book-author">Reinaldo Zanon · 2021</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(16)">
+      <div class="book-cover" style="background:#dbeafe;">📘</div>
+      <div class="book-info">
+        <div class="book-title">Tendências Imobiliárias</div>
+        <div class="book-author">Feitosa, Egito e Parente Neto · 2025</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(17)">
+      <div class="book-cover" style="background:#ffedd5;">📙</div>
+      <div class="book-info">
+        <div class="book-title">Areia Que Canta</div>
+        <div class="book-author">Carlos Minuano · 2024</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(18)">
+      <div class="book-cover" style="background:#dcfce7;">📗</div>
+      <div class="book-info">
+        <div class="book-title">O ABC da Locação de Imóveis</div>
+        <div class="book-author">Vivane Mondardo · 2024</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+    <div class="book-card" onclick="abrirModal(19)">
+      <div class="book-cover" style="background:#fce7f3;">📕</div>
+      <div class="book-info">
+        <div class="book-title">As Especialistas de Sucesso do Mercado Imobiliário Vol. 2</div>
+        <div class="book-author">Coord. Melissa Tagliaferri</div>
+        <button class="book-btn">Ver detalhes</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-section" id="emprestar">
+    <div class="section-label" style="margin-bottom:8px;">Registrar empréstimo</div>
+    <p style="font-size:13px; color:#6b7280; margin-bottom:16px;">Preencha o formulário abaixo. Você receberá um e-mail de confirmação e um lembrete na data de devolução.</p>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScho_rXpJtmcjasgTeetKouGIJUlwfM0BAi_pGAFgU30qMjUA/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
+  </div>
+
+</div>
+
+<div class="footer">
+  Portal do Colaborador · Porta8 Imóveis · <a href="https://www.porta8.com.br" target="_blank">porta8.com.br</a>
+</div>
+
+<script>
+const livros = [
+  { emoji:"📘", bg:"#dbeafe", titulo:"Lei do Inquilinato Comentada, Interpretada e Aplicada — 2ª Ed.", autor:"Misael Montenegro Filho · 2025", resumo:"Guia completo e atualizado sobre a Lei 8.245/91, que regula as locações urbanas no Brasil. Essencial para profissionais do mercado imobiliário, apresenta comentários práticos e jurisprudência atualizada sobre direitos e deveres de locadores, locatários e fiadores, com foco na aplicação do dia a dia." },
+  { emoji:"📙", bg:"#ffedd5", titulo:"O Fascinante Império de Steve Jobs", autor:"Michael Moritz · 2010", resumo:"Retrato detalhado da trajetória de Steve Jobs e a construção da Apple. Uma análise profunda da visão, perfeccionismo e liderança de um dos maiores empreendedores da história, revelando como a obsessão por inovação e design transformou a tecnologia e a cultura mundial." },
+  { emoji:"📗", bg:"#dcfce7", titulo:"Construindo Uma Vida — Trajetória Profissional, Negócios e o Aprendiz", autor:"Sérgio Augusto de Andrade · 2006", resumo:"Relato autobiográfico sobre uma trajetória marcante no mundo dos negócios brasileiros. O autor compartilha lições reais sobre empreendedorismo, superação de obstáculos e construção de uma carreira sólida, com reflexões que inspiram profissionais em diferentes fases da vida." },
+  { emoji:"📕", bg:"#fce7f3", titulo:"Marketing Direto ao Vivo no Brasil", autor:"Silvio Lefèvre · 1994", resumo:"Obra pioneira no Brasil sobre marketing direto, apresenta conceitos, estratégias e cases reais de comunicação personalizada com o cliente. Mesmo escrito nos anos 90, os princípios apresentados continuam relevantes para qualquer profissional que queira se relacionar de forma direta e eficiente com seu público." },
+  { emoji:"📘", bg:"#dbeafe", titulo:"Marketing Imobiliário", autor:"Bruno Lessa · 2018", resumo:"Estratégias modernas de marketing aplicadas especificamente ao setor imobiliário. Aborda posicionamento de marca, captação de clientes, presença digital e técnicas de vendas para o mercado de imóveis, com linguagem prática e direta para corretores e gestores." },
+  { emoji:"📙", bg:"#ffedd5", titulo:"Marketing da Promoção e Merchandising", autor:"Luiz Cláudio Zenone e Ana Maria Ramos Buairide · 2006", resumo:"Explora as ferramentas de promoção de vendas e merchandising como diferenciais competitivos no mercado. Com estratégias práticas para ações bem-sucedidas no ponto de venda e no relacionamento com o consumidor, é referência para quem trabalha com comunicação e vendas." },
+  { emoji:"📗", bg:"#dcfce7", titulo:"A Chave da Virada", autor:"Marcello Niek e Bruno Raso · 2024", resumo:"Aborda como identificar e superar os bloqueios que impedem o crescimento pessoal e profissional. Com ferramentas práticas e relatos inspiradores, os autores mostram como transformar a mentalidade e criar as condições certas para alcançar resultados extraordinários na vida e nos negócios." },
+  { emoji:"📕", bg:"#fce7f3", titulo:"Gatilhos Mentais", autor:"Gustavo Ferreira · 2019", resumo:"Apresenta os principais gatilhos psicológicos que influenciam decisões de compra e comportamento humano. Essencial para profissionais de vendas e atendimento, o livro ensina como usar esses mecanismos de forma ética para se conectar melhor com clientes e fechar mais negócios." },
+  { emoji:"📘", bg:"#dbeafe", titulo:"A Jornada de Compra do Imóvel", autor:"Bruno Lessa · 2019", resumo:"Mapeia cada etapa pela qual o comprador passa até fechar negócio no mercado imobiliário. Ajuda corretores e profissionais do setor a entender e antecipar as necessidades do cliente em cada fase, melhorando o atendimento e aumentando a taxa de conversão." },
+  { emoji:"📙", bg:"#ffedd5", titulo:"Marketing de Relacionamento", autor:"Bruno Lessa · 2018", resumo:"Técnicas e estratégias para construir relacionamentos duradouros com clientes no mercado imobiliário. Foca em fidelização, indicações e geração de valor além da venda, mostrando como transformar clientes em verdadeiros promotores do seu trabalho." },
+  { emoji:"📗", bg:"#dcfce7", titulo:"As Armas da Persuasão", autor:"Robert B. Cialdini · 2012", resumo:"Best-seller mundial que revela os seis princípios universais de influência e persuasão: reciprocidade, compromisso, aprovação social, afeição, autoridade e escassez. Leitura obrigatória para quem trabalha com vendas, negociação e atendimento ao cliente." },
+  { emoji:"📕", bg:"#fce7f3", titulo:"PNL Memorização — A Mágica de Aprender", autor:"Sirlei Bernardes · 2004", resumo:"Técnicas de Programação Neurolinguística aplicadas ao aprendizado e à memorização. Apresenta métodos acessíveis para melhorar a capacidade de reter e organizar informações, sendo útil para profissionais que precisam absorver grande quantidade de conteúdo no dia a dia." },
+  { emoji:"📘", bg:"#dbeafe", titulo:"Excelência no Marketing de Guerrilha — 2ª Ed.", autor:"Jay Conrad Levinson · 1994", resumo:"Estratégias de baixo custo e alto impacto para pequenas e médias empresas se destacarem no mercado. Ensina como competir com grandes marcas usando criatividade, inovação e ações não convencionais, sendo um clássico do marketing que influenciou gerações de empreendedores." },
+  { emoji:"📙", bg:"#ffedd5", titulo:"Não Tenha Medo de Ser Chefe", autor:"Bruce Tulgan · 2019", resumo:"Guia prático para líderes que precisam dar feedbacks difíceis, estabelecer expectativas claras e gerenciar equipes com confiança. O autor desmistifica o papel de chefe e mostra que liderar com firmeza e clareza é o que realmente motiva e engaja as equipes." },
+  { emoji:"📗", bg:"#dcfce7", titulo:"As 5 Linguagens do Amor — 3ª Ed.", autor:"Gary Chapman · 2013", resumo:"Revela os cinco modos pelos quais as pessoas expressam e recebem amor: palavras de afirmação, tempo de qualidade, presentes, atos de serviço e toque físico. Transforma também a forma como nos comunicamos e nos relacionamos no ambiente profissional." },
+  { emoji:"📕", bg:"#fce7f3", titulo:"Chegou a Hora de Decolar", autor:"Reinaldo Zanon · 2021", resumo:"Inspiração e estratégias práticas para quem quer dar um salto na carreira ou nos negócios. O autor aborda como superar medos, identificar oportunidades no momento certo e tomar decisões corajosas que transformam trajetórias profissionais." },
+  { emoji:"📘", bg:"#dbeafe", titulo:"Tendências Imobiliárias", autor:"Bruna Feitosa, Francisco Egito e Edison Parente Neto · 2025", resumo:"Análise das principais tendências que moldarão o mercado imobiliário nos próximos anos. Abrange tecnologia, sustentabilidade, novos perfis de compradores e mudanças regulatórias, sendo leitura essencial para quem quer se antecipar às transformações do setor." },
+  { emoji:"📙", bg:"#ffedd5", titulo:"Areia Que Canta", autor:"Carlos Minuano · 2024", resumo:"Obra literária contemporânea que explora narrativas sobre identidade, pertencimento e a relação do ser humano com a natureza e os lugares. Uma leitura enriquecedora que amplia perspectivas e estimula a reflexão, indo além do universo profissional." },
+  { emoji:"📗", bg:"#dcfce7", titulo:"O ABC da Locação de Imóveis — 2ª Ed.", autor:"Vivane Mondardo · 2024", resumo:"Manual prático e direto sobre todos os aspectos da locação imobiliária, da captação do imóvel até a entrega das chaves. Ideal para corretores e administradoras que querem dominar os processos, evitar erros comuns e oferecer um serviço de excelência." },
+  { emoji:"📕", bg:"#fce7f3", titulo:"As Especialistas de Sucesso do Mercado Imobiliário — Vol. 2", autor:"Coord. Melissa Tagliaferri", resumo:"Coletânea com histórias e estratégias de mulheres que se destacaram no mercado imobiliário brasileiro. Cada capítulo traz perspectivas reais sobre liderança, vendas, superação e construção de carreira no setor, sendo fonte de inspiração para quem atua ou quer atuar no mercado imobiliário." }
+];
+
+function abrirModal(i) {
+  const l = livros[i];
+  document.getElementById('modal-cover').textContent = l.emoji;
+  document.getElementById('modal-cover').style.background = l.bg;
+  document.getElementById('modal-title').textContent = l.titulo;
+  document.getElementById('modal-author').textContent = l.autor;
+  document.getElementById('modal-summary').textContent = l.resumo;
+  document.getElementById('modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharModal(e) {
+  if (!e || e.target === document.getElementById('modal') || e.currentTarget.classList.contains('modal-close')) {
+    document.getElementById('modal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
+</script>
+
+</body>
+</html>
