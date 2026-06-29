@@ -103,6 +103,7 @@
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
       color: #6b7280;
+      font-size: 18px;
     }
     .modal-cover-wrap {
       width: 90px; height: 126px;
@@ -161,7 +162,7 @@
     <div class="modal-title" id="modal-title"></div>
     <div class="modal-author" id="modal-author"></div>
     <div class="modal-summary" id="modal-summary"></div>
-    <a href="#emprestar" class="modal-borrow-btn" onclick="fecharModal()">
+    <a id="modal-link" href="#" target="_blank" class="modal-borrow-btn">
       <span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">bookmark_add</span>
       Quero emprestar este livro
     </a>
@@ -189,7 +190,7 @@
   <div style="background:#e8f0fe; border-radius:10px; padding:14px 18px; display:flex; align-items:center; gap:12px; margin-bottom:24px;">
     <span class="material-icons" style="color:var(--azul); flex-shrink:0;">info</span>
     <p style="font-size:13px; color:#1a2e4a; margin:0; line-height:1.6;">
-      Clique em qualquer livro para ver o resumo. Para emprestar, use o formulário no final da página. Você e a Thais receberão um e-mail de confirmação e um lembrete na data de devolução.
+      Clique em qualquer livro para ver o resumo. Para emprestar, clique em "Quero emprestar este livro" e o formulário já abrirá com o livro selecionado.
     </p>
   </div>
 
@@ -421,6 +422,8 @@ function abrirModal(i) {
   document.getElementById('modal-title').textContent = l.titulo;
   document.getElementById('modal-author').textContent = l.autor;
   document.getElementById('modal-summary').textContent = l.resumo;
+  var titulo = encodeURIComponent(l.titulo);
+  document.getElementById('modal-link').href = 'https://docs.google.com/forms/d/e/1FAIpQLScho_rXpJtmcjasgTeetKouGIJUlwfM0BAi_pGAFgU30qMjUA/viewform?usp=pp_url&entry.1306424790=' + titulo;
   document.getElementById('modal').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
