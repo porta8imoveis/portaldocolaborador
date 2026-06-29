@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telefone Corporativo · Portal do Colaborador</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<div class="hero">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div class="nav-links" style="margin-bottom:1rem;">
+          <a href="../index.html" style="color:#fff; font-size:13px; font-weight:500; text-decoration:none; opacity:0.8;">← Início</a>
+        </div>
+        <div class="hero-eyebrow">Serviços internos</div>
+        <div class="hero-title">Telefone Corporativo</div>
+        <div class="hero-sub">Contatos diretos da equipe Porta 8.</div>
+      </div>
+      <img src="../assets/logo-branca (1).png" alt="Porta8 Imóveis" style="height:60px; max-width:140px; object-fit:contain; opacity:0.9;">
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 2rem; margin-bottom: 3rem;">
+
+  <div class="section-label">Equipe</div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; margin-top: 1rem;">
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">AM</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Amanda Cristina Martins Longhi</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99622-7962
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">BO</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Barbara Oliveira de Souza Paula Silva</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99626-9127
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">BS</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Bruna Fernanda Sinhorini</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99672-5292
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">CG</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Caísa de Oliveira Lopes Portilho de Godoy</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99659-8949
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">CM</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Camila de Almeida Melo</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 98190-4630
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">CD</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Carla Grasiele Delson</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99608-1540
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">DL</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Daiany Lopes Gardini</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99681-0907
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">DC</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Danielle Eliane Cardoso Maldonado</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99759-7705
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">FZ</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Fabiana Zamarro Rocha</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99653-5305
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">FM</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Fabíola Junia Moralez</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99600-2303
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">FH</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Felipe Heitor Antunes de Oliveira</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99785-0719
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">FG</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Filipe Augusto Guimarães Dias</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99744-2171
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">JA</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Janaina Almeida de Jesus</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99662-7928
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">LM</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Leticia Martins</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99745-1047
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">LF</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Lucas Fernandes</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99250-3881
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">ME</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Maria Eduarda Goes</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99782-8881
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">ML</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Maria Luiza Ferreira Ribeiro</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99763-3470
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">MK</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Mikaele Luiz de Lima</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99620-7467
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">RR</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Rodolfo Rocha Martins de Araujo</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99754-0686
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">SB</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Sâmela Brenda Lucas Cândido</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 98231-9005
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">TR</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Thais Ribeiro de Almeida</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99792-2172
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; align-items:center; gap:14px; cursor:default; text-decoration:none;">
+      <div class="aniv-avatar" style="flex-shrink:0;">TB</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:var(--marinho); line-height:1.4;">Thiago Bueno de Oliveira</div>
+        <div style="font-size:13px; color:var(--texto-secundario); margin-top:3px; display:flex; align-items:center; gap:4px;">
+          <span class="material-icons" style="font-size:14px; color:var(--verde);">phone</span>
+          (17) 99724-7600
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  Portal do Colaborador · Porta8 Imóveis · <a href="https://www.porta8.com.br" target="_blank">porta8.com.br</a>
+</div>
+
+</body>
+</html>
