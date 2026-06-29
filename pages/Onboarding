@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding · Portal do Colaborador</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<div class="hero">
+  <div class="container" style="padding-top:0; padding-bottom:0;">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div class="nav-links" style="margin-bottom:1rem;">
+          <a href="../index.html" style="color:#fff; font-size:13px; font-weight:500; text-decoration:none; opacity:0.8;">← Início</a>
+        </div>
+        <div class="hero-eyebrow">Cultura e desenvolvimento</div>
+        <div class="hero-title">Onboarding</div>
+        <div class="hero-sub">Bem-vindo(a) à Porta 8. Tudo que você precisa saber para começar bem.</div>
+      </div>
+      <img src="../assets/logo-branca (1).png" alt="Porta8 Imóveis" style="height:60px; max-width:140px; object-fit:contain; opacity:0.9;">
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 2rem; margin-bottom: 3rem;">
+
+  <!-- MENSAGEM DO PRESIDENTE -->
+  <div class="widget" style="margin-bottom: 20px;">
+    <div class="widget-header marinho">
+      <span class="material-icons" style="font-size:16px;">format_quote</span>
+      <span class="widget-title">Mensagem do Presidente</span>
+    </div>
+    <div class="widget-body">
+      <p style="font-style:italic; color:var(--marinho); font-size:14px; line-height:1.8; text-align:justify; margin-bottom:12px;">
+        "Obrigado por aceitar o desafio de estar entre os melhores. Nenhum obstáculo será grande o suficiente se sua vontade de vencer for maior, por isso, estamos te recebendo de braços abertos. Esperamos que sua jornada seja repleta de conquistas e que juntos possamos sempre ir além."
+      </p>
+      <p style="font-size:14px; line-height:1.8; text-align:justify; margin-bottom:12px;">
+        Desde 2014, nossa missão em São José do Rio Preto tem sido muito clara: conectar sonhos e simplificar processos no setor imobiliário. Agora, com você fazendo parte do nosso time, essa missão se fortalece ainda mais. Aqui, valorizamos a inovação, a tecnologia e, principalmente, o contato humano.
+      </p>
+      <p style="font-size:14px; line-height:1.8; text-align:justify;">
+        Nosso objetivo é transformar o mercado imobiliário em um ambiente mais eficiente, menos burocrático e verdadeiramente humano. Obrigado por aceitar fazer parte da nossa missão. Vamos juntos construir conquistas!
+      </p>
+      <p style="font-size:13px; color:var(--texto-secundario); margin-top:12px; font-weight:600;">— Thiago Bueno · Presidente</p>
+    </div>
+  </div>
+
+  <!-- MISSÃO, VISÃO E VALORES -->
+  <div class="section-label">01 · Missão, Visão e Valores</div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 1rem; margin-bottom: 20px;">
+
+    <div class="widget" style="margin:0;">
+      <div class="widget-header azul">
+        <span class="material-icons" style="font-size:16px;">flag</span>
+        <span class="widget-title">Missão</span>
+      </div>
+      <div class="widget-body">
+        <p style="font-size:14px; line-height:1.7; text-align:justify;">Conectar pessoas aos seus sonhos imobiliários com experiências personalizadas, ágeis e humanizadas, valorizando cada cliente como único.</p>
+      </div>
+    </div>
+
+    <div class="widget" style="margin:0;">
+      <div class="widget-header laranja">
+        <span class="material-icons" style="font-size:16px;">visibility</span>
+        <span class="widget-title">Visão</span>
+      </div>
+      <div class="widget-body">
+        <p style="font-size:14px; line-height:1.7; text-align:justify;">Ser referência em inovação e atendimento humanizado no mercado imobiliário de São José do Rio Preto.</p>
+      </div>
+    </div>
+
+    <div class="widget" style="margin:0;">
+      <div class="widget-header verde">
+        <span class="material-icons" style="font-size:16px;">star</span>
+        <span class="widget-title">Valores</span>
+      </div>
+      <div class="widget-body">
+        <ul style="margin:0; padding-left:18px; font-size:13px; line-height:2;">
+          <li><strong>Transparência</strong> — Clareza e honestidade em todas as etapas.</li>
+          <li><strong>Proximidade</strong> — Relacionamentos próximos e empáticos.</li>
+          <li><strong>Tecnologia</strong> — Ferramentas para simplificar processos.</li>
+          <li><strong>Agilidade</strong> — Rapidez e eficiência sem burocracia.</li>
+          <li><strong>Humanização</strong> — Atendimento personalizado e respeitoso.</li>
+          <li><strong>Conexão</strong> — Unir pessoas aos seus objetivos.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SUA CHEGADA -->
+  <div class="section-label">02 · Sua chegada à Porta 8</div>
+  <div class="widget" style="margin-top: 1rem; margin-bottom: 20px;">
+    <div class="widget-header azul">
+      <span class="material-icons" style="font-size:16px;">assignment</span>
+      <span class="widget-title">Admissão — o que você precisa saber</span>
+    </div>
+    <div class="widget-body">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="background:var(--azul); color:#fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">1</div>
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--marinho);">Documentos</div>
+            <div style="font-size:13px; color:var(--texto-secundario); line-height:1.5;">Assinados de forma virtual no dia da admissão.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="background:var(--azul); color:#fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">2</div>
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--marinho);">Pagamento</div>
+            <div style="font-size:13px; color:var(--texto-secundario); line-height:1.5;">Salário creditado no 5º dia útil do mês seguinte, via Santander.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="background:var(--azul); color:#fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">3</div>
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--marinho);">Dados bancários</div>
+            <div style="font-size:13px; color:var(--texto-secundario); line-height:1.5;">É responsabilidade do colaborador manter os dados atualizados.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="background:var(--azul); color:#fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">4</div>
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--marinho);">Holerite</div>
+            <div style="font-size:13px; color:var(--texto-secundario); line-height:1.5;">Consultado pelo Portal do Colaborador.</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <div style="background:var(--azul); color:#fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">5</div>
+          <div>
+            <div style="font-weight:700; font-size:13px; color:var(--marinho);">Contrato de experiência</div>
+            <div style="font-size:13px; color:var(--texto-secundario); line-height:1.5;">Pode ser prorrogado uma única vez por mais 45 dias.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BENEFÍCIOS -->
+  <div class="section-label">03 · Benefícios</div>
+  <div class="cards-grid" style="margin-top: 1rem; margin-bottom: 20px;">
+    <div class="card" style="cursor:default;">
+      <div class="card-icon laranja"><span class="material-icons">restaurant</span></div>
+      <div class="card-title">Refeição & Alimentação</div>
+      <div style="font-size:12px; color:var(--texto-secundario); margin-top:4px;">Saldo mensal via iFood para refeições e mercado.</div>
+    </div>
+    <div class="card" style="cursor:default;">
+      <div class="card-icon azul"><span class="material-icons">local_hospital</span></div>
+      <div class="card-title">Plano de Saúde</div>
+      <div style="font-size:12px; color:var(--texto-secundario); margin-top:4px;">Unimed coparticipativo, com cobertura ampla.</div>
+    </div>
+    <div class="card" style="cursor:default;">
+      <div class="card-icon verde"><span class="material-icons">directions_bus</span></div>
+      <div class="card-title">Vale Transporte</div>
+      <div style="font-size:12px; color:var(--texto-secundario); margin-top:4px;">Para deslocamentos diários.</div>
+    </div>
+    <div class="card" style="cursor:default;">
+      <div class="card-icon marinho"><span class="material-icons">cake</span></div>
+      <div class="card-title">Day Off</div>
+      <div style="font-size:12px; color:var(--texto-secundario); margin-top:4px;">Folga especial no dia do seu aniversário.</div>
+    </div>
+  </div>
+
+  <!-- NORMAS INTERNAS -->
+  <div class="section-label">04 · Normas internas</div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 1rem; margin-bottom: 20px;">
+
+    <div class="widget" style="margin:0;">
+      <div class="widget-header marinho">
+        <span class="material-icons" style="font-size:16px;">schedule</span>
+        <span class="widget-title">Horário de trabalho</span>
+      </div>
+      <div class="widget-body">
+        <ul style="margin:0; padding-left:18px; font-size:13px; line-height:1.9;">
+          <li>Segunda a sexta com horário flexível (ver recados).</li>
+          <li>Saídas antecipadas devem ter autorização da liderança.</li>
+          <li>Atrasos frequentes ou injustificados podem gerar advertência.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="widget" style="margin:0;">
+      <div class="widget-header laranja">
+        <span class="material-icons" style="font-size:16px;">checkroom</span>
+        <span class="widget-title">Vestimenta</span>
+      </div>
+      <div class="widget-body">
+        <ul style="margin:0; padding-left:18px; font-size:13px; line-height:1.9;">
+          <li>Evite roupas curtas, decotadas, camisetas de times, chinelos ou bonés.</li>
+          <li>Perfumes com moderação, sem excessos que incomodem colegas e clientes.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="widget" style="margin:0;">
+      <div class="widget-header azul">
+        <span class="material-icons" style="font-size:16px;">smartphone</span>
+        <span class="widget-title">Celular & Internet</span>
+      </div>
+      <div class="widget-body">
+        <ul style="margin:0; padding-left:18px; font-size:13px; line-height:1.9;">
+          <li>Celulares com moderação durante o expediente.</li>
+          <li>Redes sociais não são permitidas.</li>
+          <li>Internet da empresa é para fins profissionais (uso pode ser monitorado).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="widget" style="margin:0;">
+      <div class="widget-header verde">
+        <span class="material-icons" style="font-size:16px;">handshake</span>
+        <span class="widget-title">Ética e convivência</span>
+      </div>
+      <div class="widget-body">
+        <ul style="margin:0; padding-left:18px; font-size:13px; line-height:1.9;">
+          <li>Respeito mútuo entre colegas, superiores, clientes e parceiros.</li>
+          <li>Discriminação e assédio: passíveis de demissão por justa causa.</li>
+          <li>Sigilo absoluto sobre informações internas e estratégicas da empresa.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="widget" style="margin:0;">
+      <div class="widget-header marinho">
+        <span class="material-icons" style="font-size:16px;">event_busy</span>
+        <span class="widget-title">Ausências & atestados</span>
+      </div>
+      <div class="widget-body">
+        <ul style="margin:0; padding-left:18px; font-size:13px; line-height:1.9;">
+          <li>Faltas comunicadas até o início do expediente.</li>
+          <li>Atestados médicos apresentados em até 48h.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="widget" style="margin:0;">
+      <div class="widget-header laranja">
+        <span class="material-icons" style="font-size:16px;">table_restaurant</span>
+        <span class="widget-title">Organização do ambiente</span>
+      </div>
+      <div class="widget-body">
+        <ul style="margin:0; padding-left:18px; font-size:13px; line-height:1.9;">
+          <li>Mantenha sua estação de trabalho organizada.</li>
+          <li>Não comer na mesa de trabalho.</li>
+          <li>Espaços comuns: respeito e limpeza.</li>
+          <li>Ao final do dia, lixos recolhidos e levados à lixeira da rua.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ATENDIMENTO -->
+  <div class="section-label">05 · Atendimento ao cliente</div>
+  <div class="cards-grid" style="margin-top: 1rem; margin-bottom: 20px;">
+    <div class="card" style="cursor:default;">
+      <div class="card-icon azul"><span class="material-icons">record_voice_over</span></div>
+      <div class="card-title">Palavras certas</div>
+      <div style="font-size:12px; color:var(--texto-secundario); margin-top:4px;">Use vocabulário cuidadoso e tom de voz adequado.</div>
+    </div>
+    <div class="card" style="cursor:default;">
+      <div class="card-icon verde"><span class="material-icons">bolt</span></div>
+      <div class="card-title">Pronto-atendimento</div>
+      <div style="font-size:12px; color:var(--texto-secundario); margin-top:4px;">Atenda com agilidade clientes, fornecedores e colegas.</div>
+    </div>
+    <div class="card" style="cursor:default;">
+      <div class="card-icon laranja"><span class="material-icons">favorite</span></div>
+      <div class="card-title">Conforto e respeito</div>
+      <div style="font-size:12px; color:var(--texto-secundario); margin-top:4px;">Transmita acolhimento em toda tratativa.</div>
+    </div>
+    <div class="card" style="cursor:default;">
+      <div class="card-icon marinho"><span class="material-icons">manage_accounts</span></div>
+      <div class="card-title">Perfil do cliente</div>
+      <div style="font-size:12px; color:var(--texto-secundario); margin-top:4px;">Entenda o cliente para oferecer suporte mais eficiente.</div>
+    </div>
+  </div>
+
+  <!-- FERRAMENTAS -->
+  <div class="section-label">06 · Sites e sistemas</div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-top: 1rem; margin-bottom: 20px;">
+    <a href="https://app.tallos.com.br" target="_blank" class="card" style="display:flex; align-items:center; gap:10px;">
+      <span class="material-icons" style="color:var(--azul);">chat</span>
+      <div><div style="font-size:13px; font-weight:700; color:var(--marinho);">RD Conversas</div><div style="font-size:11px; color:var(--texto-secundario);">app.tallos.com.br</div></div>
+    </a>
+    <a href="https://runrun.it" target="_blank" class="card" style="display:flex; align-items:center; gap:10px;">
+      <span class="material-icons" style="color:var(--laranja);">task_alt</span>
+      <div><div style="font-size:13px; font-weight:700; color:var(--marinho);">Runrun.it</div><div style="font-size:11px; color:var(--texto-secundario);">runrun.it</div></div>
+    </a>
+    <a href="https://superlogica.net" target="_blank" class="card" style="display:flex; align-items:center; gap:10px;">
+      <span class="material-icons" style="color:var(--verde);">apartment</span>
+      <div><div style="font-size:13px; font-weight:700; color:var(--marinho);">ERP Superlógica</div><div style="font-size:11px; color:var(--texto-secundario);">superlogica.net</div></div>
+    </a>
+    <a href="https://drive.google.com" target="_blank" class="card" style="display:flex; align-items:center; gap:10px;">
+      <span class="material-icons" style="color:var(--azul);">folder_shared</span>
+      <div><div style="font-size:13px; font-weight:700; color:var(--marinho);">Google Drive</div><div style="font-size:11px; color:var(--texto-secundario);">drive.google.com</div></div>
+    </a>
+    <a href="https://secure.d4sign.com.br" target="_blank" class="card" style="display:flex; align-items:center; gap:10px;">
+      <span class="material-icons" style="color:var(--marinho);">draw</span>
+      <div><div style="font-size:13px; font-weight:700; color:var(--marinho);">D4 Sign</div><div style="font-size:11px; color:var(--texto-secundario);">secure.d4sign.com.br</div></div>
+    </a>
+    <a href="https://crmx.novovista.com.br" target="_blank" class="card" style="display:flex; align-items:center; gap:10px;">
+      <span class="material-icons" style="color:var(--laranja);">people</span>
+      <div><div style="font-size:13px; font-weight:700; color:var(--marinho);">CRM</div><div style="font-size:11px; color:var(--texto-secundario);">crmx.novovista.com.br</div></div>
+    </a>
+    <a href="https://credpago.com" target="_blank" class="card" style="display:flex; align-items:center; gap:10px;">
+      <span class="material-icons" style="color:var(--verde);">credit_card</span>
+      <div><div style="font-size:13px; font-weight:700; color:var(--marinho);">Credpago</div><div style="font-size:11px; color:var(--texto-secundario);">credpago.com</div></div>
+    </a>
+    <a href="https://app.yolee.com.br" target="_blank" class="card" style="display:flex; align-items:center; gap:10px;">
+      <span class="material-icons" style="color:var(--azul);">home_work</span>
+      <div><div style="font-size:13px; font-weight:700; color:var(--marinho);">Yolee</div><div style="font-size:11px; color:var(--texto-secundario);">app.yolee.com.br</div></div>
+    </a>
+  </div>
+
+  <!-- ONDE NOS ENCONTRAR -->
+  <div class="section-label">07 · Onde nos encontrar</div>
+  <div class="widget" style="margin-top: 1rem;">
+    <div class="widget-header marinho">
+      <span class="material-icons" style="font-size:16px;">location_on</span>
+      <span class="widget-title">Contato e endereço</span>
+    </div>
+    <div class="widget-body">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; font-size:13px;">
+        <div>
+          <div style="font-weight:700; color:var(--marinho); margin-bottom:4px;">Endereço</div>
+          <div style="color:var(--texto-secundario); line-height:1.6;">Rua Doutor Raul Silva, 1516<br>Nova Redentora<br>São José do Rio Preto - SP<br>CEP 15090-035</div>
+        </div>
+        <div>
+          <div style="font-weight:700; color:var(--marinho); margin-bottom:4px;">Comercial</div>
+          <div style="color:var(--texto-secundario);">(17) 99758-3133</div>
+        </div>
+        <div>
+          <div style="font-weight:700; color:var(--marinho); margin-bottom:4px;">Central de Atendimento</div>
+          <div style="color:var(--texto-secundario);">(17) 98206-7600</div>
+        </div>
+        <div>
+          <div style="font-weight:700; color:var(--marinho); margin-bottom:4px;">Redes sociais</div>
+          <div style="color:var(--texto-secundario); line-height:1.8;">
+            Facebook: /porta8imoveis<br>
+            Instagram: @porta8imoveis<br>
+            LinkedIn: /porta8imoveis
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Portal do Colaborador · Porta8 Imóveis · <a href="https://www.porta8.com.br" target="_blank">porta8.com.br</a>
+</div>
+
+</body>
+</html>
