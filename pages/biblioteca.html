@@ -22,10 +22,31 @@
       transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
     .book-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.13);
+    }
+    .book-card.emprestado {
+      opacity: 0.7;
+      cursor: default;
+    }
+    .book-card.emprestado:hover {
+      transform: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .tag-emprestado {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     .book-cover {
       height: 150px;
@@ -67,6 +88,12 @@
       transition: all 0.2s;
     }
     .book-btn:hover { background: var(--azul); color: #fff; }
+    .book-btn.indisponivel {
+      color: #9ca3af;
+      border-color: #9ca3af;
+      cursor: default;
+    }
+    .book-btn.indisponivel:hover { background: none; color: #9ca3af; }
     .modal-overlay {
       display: none;
       position: fixed;
@@ -137,6 +164,11 @@
       transition: opacity 0.2s;
     }
     .modal-borrow-btn:hover { opacity: 0.88; }
+    .modal-borrow-btn.indisponivel {
+      background: #9ca3af;
+      cursor: default;
+      pointer-events: none;
+    }
     .form-section {
       background: #f8f9fb;
       border-radius: 16px;
@@ -190,12 +222,12 @@
   <div style="background:#e8f0fe; border-radius:10px; padding:14px 18px; display:flex; align-items:center; gap:12px; margin-bottom:24px;">
     <span class="material-icons" style="color:var(--azul); flex-shrink:0;">info</span>
     <p style="font-size:13px; color:#1a2e4a; margin:0; line-height:1.6;">
-      Clique em qualquer livro para ver o resumo. Para emprestar, clique em "Quero emprestar este livro" e o formulário já abrirá com o livro selecionado.
+      Clique em qualquer livro para ver o resumo. Livros com a etiqueta <strong style="color:#ef4444;">EMPRESTADO</strong> estão indisponíveis no momento.
     </p>
   </div>
 
   <div class="section-label">Acervo disponível</div>
-  <div class="book-grid">
+  <div class="book-grid" id="book-grid">
 
     <div class="book-card" onclick="abrirModal(0)">
       <div class="book-cover" style="background:#dbeafe;">📘</div>
@@ -392,6 +424,8 @@
 </div>
 
 <script>
+const URL_EMPRESTADOS = 'https://script.google.com/macros/s/AKfycbyXem3wjmDiftSYWe9V1QQD2WHGuGhUZOYUhsFP1mF5nQOczUt-nuY5EcsJeBI4fi1aUg/exec';
+
 const livros = [
   { emoji:"📘", bg:"#dbeafe", titulo:"Lei do Inquilinato Comentada — Misael Montenegro Filho", display:"Lei do Inquilinato Comentada, Interpretada e Aplicada — 2ª Ed.", autor:"Misael Montenegro Filho · 2025", resumo:"Guia completo e atualizado sobre a Lei 8.245/91, que regula as locações urbanas no Brasil. Essencial para profissionais do mercado imobiliário, apresenta comentários práticos e jurisprudência atualizada sobre direitos e deveres de locadores, locatários e fiadores, com foco na aplicação do dia a dia." },
   { emoji:"📙", bg:"#ffedd5", titulo:"O Fascinante Império de Steve Jobs — Michael Moritz", display:"O Fascinante Império de Steve Jobs", autor:"Michael Moritz · 2010", resumo:"Retrato detalhado da trajetória de Steve Jobs e a construção da Apple. Uma análise profunda da visão, perfeccionismo e liderança de um dos maiores empreendedores da história, revelando como a obsessão por inovação e design transformou a tecnologia e a cultura mundial." },
@@ -415,15 +449,51 @@ const livros = [
   { emoji:"📕", bg:"#fce7f3", titulo:"As Especialistas de Sucesso do Mercado Imobiliário Vol. 2 — Coord. Melissa Tagliaferri", display:"As Especialistas de Sucesso do Mercado Imobiliário — Vol. 2", autor:"Coord. Melissa Tagliaferri", resumo:"Coletânea com histórias e estratégias de mulheres que se destacaram no mercado imobiliário brasileiro. Cada capítulo traz perspectivas reais sobre liderança, vendas, superação e construção de carreira no setor, sendo fonte de inspiração para quem atua ou quer atuar no mercado imobiliário." }
 ];
 
+let emprestados = [];
+
+fetch(URL_EMPRESTADOS)
+  .then(r => r.json())
+  .then(lista => {
+    emprestados = lista;
+    marcarEmprestados();
+  })
+  .catch(() => {});
+
+function marcarEmprestados() {
+  const cards = document.querySelectorAll('#book-grid .book-card');
+  cards.forEach((card, i) => {
+    if (emprestados.includes(livros[i].titulo)) {
+      card.classList.add('emprestado');
+      card.onclick = () => abrirModal(i);
+      const tag = document.createElement('div');
+      tag.className = 'tag-emprestado';
+      tag.textContent = 'Emprestado';
+      card.appendChild(tag);
+      card.querySelector('.book-btn').classList.add('indisponivel');
+      card.querySelector('.book-btn').textContent = 'Indisponível';
+    }
+  });
+}
+
 function abrirModal(i) {
   const l = livros[i];
+  const estaEmprestado = emprestados.includes(l.titulo);
   document.getElementById('modal-cover').textContent = l.emoji;
   document.getElementById('modal-cover').style.background = l.bg;
   document.getElementById('modal-title').textContent = l.display;
   document.getElementById('modal-author').textContent = l.autor;
   document.getElementById('modal-summary').textContent = l.resumo;
-  var titulo = encodeURIComponent(l.titulo);
-  document.getElementById('modal-link').href = 'https://docs.google.com/forms/d/e/1FAIpQLScho_rXpJtmcjasgTeetKouGIJUlwfM0BAi_pGAFgU30qMjUA/viewform?usp=pp_url&entry.1306424790=' + titulo;
+  const btn = document.getElementById('modal-link');
+  if (estaEmprestado) {
+    btn.className = 'modal-borrow-btn indisponivel';
+    btn.textContent = 'Livro indisponível no momento';
+    btn.removeAttribute('href');
+  } else {
+    btn.className = 'modal-borrow-btn';
+    btn.innerHTML = '<span class="material-icons" style="font-size:16px; vertical-align:middle; margin-right:4px;">bookmark_add</span> Quero emprestar este livro';
+    btn.href = 'https://docs.google.com/forms/d/e/1FAIpQLScho_rXpJtmcjasgTeetKouGIJUlwfM0BAi_pGAFgU30qMjUA/viewform?usp=pp_url&entry.1306424790=' + encodeURIComponent(l.titulo);
+    btn.target = '_blank';
+  }
   document.getElementById('modal').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
