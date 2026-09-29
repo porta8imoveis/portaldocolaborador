@@ -1,209 +1,819 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal do Colaborador · Porta8 Imóveis</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portal do Colaborador · Porta8 Imóveis</title>
+
+<!-- Fontes: Poppins (títulos) + Inter (corpo) + ícones Material Symbols -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<style>
+  :root{
+    --navy:#16223F;
+    --navy-600:#24365F;
+    --ink:#1D2A44;
+    --muted:#6B7794;
+    --paper:#F4F6FB;
+    --surface:#FFFFFF;
+    --line:#E7EBF3;
+
+    --orange:#EE6C1F;
+    --orange-soft:#FFF1E6;
+    --blue:#023EFC;
+    --blue-soft:#E0E7FE;
+    --green:#2FA45A;
+    --green-soft:#E7F6ED;
+    --purple:#7A5AF0;
+    --purple-soft:#EFEBFF;
+    --pink:#E85D9C;
+    --pink-soft:#FCE9F2;
+
+    --radius:16px;
+    --shadow-card:0 1px 2px rgba(22,34,63,.06), 0 8px 24px rgba(22,34,63,.05);
+    --shadow-soft:0 1px 2px rgba(22,34,63,.05);
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  .material-symbols-outlined{font-size:22px;line-height:1;vertical-align:middle;}
+
+  /* ---------- Barra superior ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.86);
+    backdrop-filter:saturate(160%) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:var(--maxw);margin:0 auto;padding:14px 22px;
+    display:flex;align-items:center;gap:18px;
+  }
+  .brand{display:flex;align-items:center;gap:11px;flex-shrink:0;}
+  .brand-mark{
+    width:34px;height:34px;border-radius:9px;
+    border:2.5px solid var(--navy);
+    display:grid;place-items:center;position:relative;
+  }
+  .brand-mark::before{
+    content:"";position:absolute;left:6px;top:6px;
+    width:8px;height:14px;border-radius:2px;background:var(--orange);
+  }
+  .brand-mark::after{
+    content:"";position:absolute;right:7px;top:8px;
+    width:4px;height:4px;border-radius:50%;background:var(--navy);
+  }
+  .brand-name{font-family:"Poppins";font-weight:700;font-size:19px;color:var(--navy);letter-spacing:-.3px;}
+  .brand-name b{color:var(--orange);}
+  .brand-logo{height:30px;width:auto;display:block;}
+
+  .search{
+    margin-left:auto;flex:1;max-width:340px;
+    display:flex;align-items:center;gap:8px;
+    background:var(--paper);border:1px solid var(--line);
+    border-radius:999px;padding:8px 14px;
+  }
+  .search:focus-within{border-color:var(--blue);background:#fff;}
+  .search .material-symbols-outlined{color:var(--muted);font-size:20px;}
+  .search input{border:0;background:transparent;outline:none;width:100%;font:inherit;color:var(--ink);}
+  .search input::placeholder{color:var(--muted);}
+
+  .bell{
+    position:relative;flex-shrink:0;
+    width:42px;height:42px;border-radius:50%;
+    display:grid;place-items:center;background:var(--paper);
+    border:1px solid var(--line);color:var(--navy);cursor:pointer;
+  }
+  .bell:hover{background:#fff;}
+  .bell .dot{
+    position:absolute;top:6px;right:6px;min-width:17px;height:17px;padding:0 4px;
+    border-radius:999px;background:var(--orange);color:#fff;
+    font-size:11px;font-weight:700;display:none;place-items:center;
+    border:2px solid #fff;font-family:"Inter";
+  }
+  .bell.has-new .dot{display:grid;}
+
+  /* ---------- Boas-vindas (herói com a porta) ---------- */
+  .welcome{max-width:var(--maxw);margin:22px auto 0;padding:0 22px;}
+  .welcome-inner{
+    position:relative;overflow:hidden;border-radius:24px;color:#fff;
+    background:radial-gradient(120% 130% at 85% 15%, #26386090 0%, #16223F00 55%), linear-gradient(135deg,#16223F 0%,#1E2E52 60%,#22335C 100%);
+    padding:34px 38px;display:flex;align-items:center;gap:30px;
+    box-shadow:0 20px 44px rgba(22,34,63,.24);
+  }
+  .welcome-text{flex:1;min-width:0;position:relative;z-index:2;}
+  .welcome-eyebrow{display:flex;align-items:center;gap:7px;color:#F3B884;font-weight:600;font-size:13px;flex-wrap:wrap;}
+  .welcome-eyebrow .material-symbols-outlined{font-size:18px;}
+  .welcome-eyebrow .sep{opacity:.45;}
+  .welcome-eyebrow #localData{color:#AEB9D4;font-weight:500;}
+  .welcome-text h1{font-family:"Poppins";font-weight:700;color:#fff;font-size:clamp(24px,3.4vw,34px);line-height:1.12;letter-spacing:-.5px;margin:9px 0 8px;}
+  .welcome-line{margin:0 0 20px;color:#C6D0E6;font-size:15.5px;max-width:44ch;}
+  .welcome-cta{
+    display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;
+    font-weight:600;font-size:14px;padding:11px 19px;border-radius:999px;transition:.16s;
+  }
+  .welcome-cta:hover{filter:brightness(1.06);transform:translateY(-1px);}
+  .welcome-cta .material-symbols-outlined{font-size:19px;}
+
+  /* a porta */
+  .welcome-door{position:relative;width:200px;height:250px;flex-shrink:0;perspective:1100px;z-index:2;}
+  .door-glow{position:absolute;left:-26px;top:-14px;right:-26px;bottom:-24px;z-index:0;
+    background:radial-gradient(58% 55% at 50% 46%, rgba(238,108,31,.5), rgba(238,108,31,0) 70%);filter:blur(4px);}
+  .door-frame{position:absolute;left:50%;top:8px;margin-left:-77px;width:154px;height:234px;
+    border-radius:77px 77px 12px 12px;background:#0E1730;border:6px solid #FFFFFF;overflow:hidden;z-index:1;}
+  .door-opening{position:absolute;inset:0;background:radial-gradient(78% 66% at 34% 42%, #FFEFD6, #F3C185 52%, #DE9245 100%);}
+  .door-leaf{position:absolute;left:50%;top:8px;margin-left:-75px;width:150px;height:230px;
+    border-radius:75px 75px 10px 10px;background:linear-gradient(180deg,#0B44FF,#0230D8);border:2px solid rgba(255,255,255,.55);
+    transform-origin:left center;transform:rotateY(-28deg);box-shadow:3px 4px 16px rgba(0,0,0,.42);z-index:2;}
+  .door-leaf::before{content:"";position:absolute;left:16px;right:16px;top:60px;height:66px;border:2px solid rgba(255,255,255,.30);border-radius:8px;}
+  .door-leaf::after{content:"";position:absolute;left:16px;right:16px;top:140px;height:66px;border:2px solid rgba(255,255,255,.30);border-radius:8px;}
+  .door-plate{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:34px;height:34px;border-radius:9px;
+    background:#FFFFFF;color:var(--blue);display:grid;place-items:center;font-family:"Poppins";font-weight:700;font-size:19px;z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.3);}
+  .door-knob{position:absolute;right:14px;top:50%;width:12px;height:12px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 3px rgba(238,108,31,.25);}
+
+  /* abertura só na primeira vez da sessão */
+  .welcome.reveal .door-leaf{animation:doorOpen 1.15s cubic-bezier(.22,.75,.2,1) .3s both;}
+  .welcome.reveal .welcome-text>*{animation:riseIn .6s ease both;}
+  .welcome.reveal .welcome-text>*:nth-child(2){animation-delay:.06s;}
+  .welcome.reveal .welcome-text>*:nth-child(3){animation-delay:.12s;}
+  .welcome.reveal .welcome-text>*:nth-child(4){animation-delay:.18s;}
+  @keyframes doorOpen{from{transform:rotateY(0deg)}to{transform:rotateY(-28deg)}}
+  @keyframes riseIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    .welcome.reveal .door-leaf,.welcome.reveal .welcome-text>*{animation:none;}
+  }
+
+  /* ---------- Mote da marca ---------- */
+  .mote{max-width:var(--maxw);margin:18px auto 0;padding:0 22px;}
+  .mote p{
+    margin:0;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;
+    font-family:"Poppins";font-weight:600;color:var(--navy);
+    font-size:clamp(15px,2vw,19px);line-height:1.4;text-align:center;
+  }
+  .mote .soft{color:var(--muted);font-weight:500;}
+  .mote .material-symbols-outlined{font-size:21px;}
+  .mote .check{color:var(--orange);}
+  .mote .house{color:var(--navy);}
+
+  /* ---------- Filtros ---------- */
+  .filters{
+    max-width:var(--maxw);margin:0 auto;padding:22px 22px 4px;
+    display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;
+  }
+  .filters::-webkit-scrollbar{display:none;}
+  .chip{
+    flex-shrink:0;border:1px solid var(--line);background:#fff;
+    color:var(--navy-600);font:inherit;font-weight:600;font-size:13.5px;
+    padding:8px 15px;border-radius:999px;cursor:pointer;transition:.15s;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .chip:hover{border-color:var(--navy-600);}
+  .chip.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .chip .swatch{width:8px;height:8px;border-radius:50%;}
+
+  /* ---------- Layout de 3 colunas ---------- */
+  .layout{
+    max-width:var(--maxw);margin:0 auto;padding:18px 22px 60px;
+    display:grid;grid-template-columns:250px minmax(0,1fr) 290px;gap:26px;
+    align-items:start;
+  }
+  .rail{position:sticky;top:86px;display:flex;flex-direction:column;gap:18px;}
+
+  /* ---------- Blocos de atalhos ---------- */
+  .group{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow-soft);}
+  .group h3{
+    font-family:"Poppins";font-size:13px;font-weight:600;color:var(--navy);
+    margin:2px 4px 10px;display:flex;align-items:center;gap:7px;
+  }
+  .group h3 .material-symbols-outlined{font-size:18px;color:var(--muted);}
+  .shortcut{
+    display:flex;align-items:center;gap:11px;padding:9px 8px;border-radius:10px;
+    color:var(--navy-600);font-weight:500;font-size:14px;transition:.14s;
+  }
+  .shortcut:hover{background:var(--paper);color:var(--navy);}
+  .shortcut .ic{
+    width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex-shrink:0;
+    background:var(--blue-soft);color:var(--blue);
+  }
+  .shortcut .ic .material-symbols-outlined{font-size:18px;}
+  .shortcut .lock{margin-left:auto;font-size:15px;color:var(--orange);}
+  .ic.orange{background:var(--orange-soft);color:var(--orange);}
+  .ic.green{background:var(--green-soft);color:var(--green);}
+  .ic.purple{background:var(--purple-soft);color:var(--purple);}
+  .ic.pink{background:var(--pink-soft);color:var(--pink);}
+
+  /* ---------- Feed ---------- */
+  .feed{display:flex;flex-direction:column;gap:16px;min-height:200px;}
+  .post{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow-card);overflow:hidden;
+    opacity:0;transform:translateY(8px);animation:rise .5s ease forwards;
+  }
+  @keyframes rise{to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){.post{animation:none;opacity:1;transform:none;}}
+  .post.pinned{border-color:#F4D9BF;}
+  .post-accent{height:4px;width:100%;}
+  .post-body{padding:18px 20px 20px;}
+  .post-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+  .avatar{
+    width:42px;height:42px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;overflow:hidden;
+    font-family:"Poppins";font-weight:600;color:#fff;font-size:16px;
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;}
+  .post-meta{min-width:0;}
+  .post-author{font-weight:600;color:var(--navy);font-size:14.5px;}
+  .post-sub{color:var(--muted);font-size:12.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .tag{
+    display:inline-flex;align-items:center;gap:5px;font-weight:600;font-size:11.5px;
+    padding:3px 9px;border-radius:999px;
+  }
+  .badge-new{
+    margin-left:auto;background:var(--orange);color:#fff;font-weight:700;font-size:11px;
+    padding:3px 9px;border-radius:999px;flex-shrink:0;letter-spacing:.2px;
+  }
+  .pin-flag{color:#C9820E;display:inline-flex;align-items:center;gap:4px;font-weight:600;font-size:12px;}
+  .pin-flag .material-symbols-outlined{font-size:16px;}
+  .post h2{font-family:"Poppins";font-size:18px;font-weight:600;color:var(--navy);margin:2px 0 8px;line-height:1.25;}
+  .post-text{color:#3A465F;font-size:14.5px;white-space:pre-line;}
+  .post-text.clamped{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden;}
+  .more-btn{
+    margin-top:10px;background:none;border:0;color:var(--blue);font:inherit;font-weight:600;
+    font-size:13.5px;cursor:pointer;padding:0;
+  }
+  .more-btn:hover{text-decoration:underline;}
+  .post-img{margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);line-height:0;background:var(--paper);}
+  .post-img img{width:100%;max-height:420px;object-fit:cover;display:block;}
+  .post-img.img-missing{min-height:110px;display:grid;place-items:center;border-style:dashed;}
+  .post-img.img-missing::after{content:"Imagem indisponível";color:var(--muted);font-size:13px;padding:16px;text-align:center;}
+
+  .empty{
+    text-align:center;color:var(--muted);padding:48px 20px;
+    background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);
+  }
+  .empty .material-symbols-outlined{font-size:34px;color:var(--line);}
+
+  /* ---------- Cartões da direita ---------- */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow-soft);}
+  .card h3{font-family:"Poppins";font-size:14px;font-weight:600;color:var(--navy);margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .card h3 .material-symbols-outlined{color:var(--pink);font-size:20px;}
+  .card.festivo{border-color:#F6C9DE;background:linear-gradient(180deg,#FEF4F9,#fff 60%);}
+  .card.festivo h3::after{content:"🎉";margin-left:auto;font-size:16px;}
+  .card.help h3 .material-symbols-outlined{color:var(--green);}
+  .bday{display:flex;align-items:center;gap:11px;padding:7px 0;}
+  .bday .avatar{width:40px;height:40px;font-size:14px;}
+  .bday small{color:var(--muted);font-size:12.5px;display:block;}
+  .bday b{font-size:14px;color:var(--navy);font-weight:600;}
+  .none{color:var(--muted);font-size:13.5px;padding:6px 2px;}
+  .help p{margin:0 0 12px;color:var(--muted);font-size:13.5px;}
+  .help .shortcut{padding:8px 6px;}
+  .help .ic{background:var(--green-soft);color:var(--green);}
+
+  /* ---------- Vagas & indicação ---------- */
+  .card.vagas h3 .material-symbols-outlined{color:var(--blue);}
+  .vaga{border:1px solid var(--line);border-radius:12px;padding:11px 12px;margin-bottom:10px;transition:.14s;}
+  .vaga:hover{border-color:var(--blue);background:var(--paper);}
+  .vaga-titulo{font-family:"Poppins";font-weight:600;color:var(--navy);font-size:14px;}
+  .vaga-tags{display:flex;flex-wrap:wrap;gap:6px;margin:7px 0 9px;}
+  .vaga-tags span{background:var(--blue-soft);color:var(--blue);font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;}
+  .vaga-actions{display:flex;gap:14px;}
+  .vaga-actions a{font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:4px;}
+  .vaga-actions .ver{color:var(--blue);}
+  .vaga-actions .ind{color:var(--orange);}
+  .vaga-actions .material-symbols-outlined{font-size:15px;}
+  .indicar-box{margin-top:4px;padding:13px;border-radius:12px;background:var(--orange-soft);}
+  .indicar-box p{margin:0 0 11px;font-size:13px;color:#8A4A16;}
+  .btn-ind{display:inline-flex;align-items:center;gap:7px;background:var(--orange);color:#fff;font-weight:600;font-size:13px;padding:9px 15px;border-radius:999px;transition:.15s;}
+  .btn-ind:hover{filter:brightness(1.06);}
+  .btn-ind .material-symbols-outlined{font-size:17px;}
+
+  /* ---------- Confete ---------- */
+  .confete{position:fixed;inset:0;pointer-events:none;z-index:200;}
+
+  /* ---------- Rodapé ---------- */
+  footer{border-top:1px solid var(--line);background:#fff;}
+  .footer-inner{max-width:var(--maxw);margin:0 auto;padding:22px;color:var(--muted);font-size:13px;text-align:center;}
+  .footer-inner b{color:var(--navy);font-weight:600;}
+
+  /* ---------- Responsivo ---------- */
+  @media (max-width:980px){
+    .layout{grid-template-columns:1fr;}
+    .rail{position:static;flex-direction:row;flex-wrap:wrap;}
+    .rail .group,.rail .card{flex:1 1 260px;}
+    .rail-left{order:2;}
+    .feed{order:1;}
+    .rail-right{order:3;}
+  }
+  @media (max-width:700px){
+    .welcome-inner{flex-direction:column-reverse;text-align:center;gap:20px;padding:28px 24px;}
+    .welcome-eyebrow,.welcome-line{justify-content:center;margin-left:auto;margin-right:auto;}
+    .welcome-door{transform:scale(.86);}
+  }
+  @media (max-width:560px){
+    .topbar-inner{flex-wrap:wrap;gap:12px;}
+    .search{order:3;max-width:100%;margin-left:0;flex:1 1 100%;}
+    .rail .group,.rail .card{flex:1 1 100%;}
+  }
+</style>
 </head>
 <body>
+  <canvas id="confete" class="confete" aria-hidden="true"></canvas>
 
-<div class="hero">
-  <div class="container" style="padding-top:0; padding-bottom:0;">
-    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
-      <div>
-        <div class="nav-links" style="margin-bottom:1rem;">
-          <a href="index.html" class="active" style="color:#fff; font-size:13px; font-weight:500; text-decoration:none; border-bottom: 2px solid var(--laranja); padding-bottom:2px;">Início</a>
-        </div>
-        <div class="hero-eyebrow">Bem-vindo ao</div>
-        <div class="hero-title">Portal do Colaborador</div>
-        <div class="hero-sub">Tudo que você precisa, em um só lugar.</div>
-      </div>
-      <img src="assets/logo-branca (1).png" alt="Porta8 Imóveis" style="height:60px; max-width:140px; object-fit:contain; opacity:0.9;">
+  <!-- ===================== BARRA SUPERIOR ===================== -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html" aria-label="Porta8 Imóveis — início">
+        <img class="brand-logo" src="assets/logo.png" alt="Porta8 Imóveis">
+      </a>
+      <label class="search">
+        <span class="material-symbols-outlined">search</span>
+        <input id="search" type="search" placeholder="Buscar no portal…" aria-label="Buscar no feed" />
+      </label>
+      <button class="bell" id="bell" title="Novidades" aria-label="Novidades">
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="dot" id="newCount">0</span>
+      </button>
     </div>
-  </div>
-</div>
+  </header>
 
-<div class="quick-bar">
-</div>
-
-<div class="container">
-
-  <div class="layout-2col" style="margin-top: 1.5rem;">
-
-    <!-- COLUNA PRINCIPAL -->
-    <div>
-
-      <!-- MINHA ÁREA -->
-      <div class="section-label">Minha área</div>
-      <div class="cards-grid">
-        <a href="pages/holerites.html" class="card">
-          <div class="card-icon laranja"><span class="material-icons">receipt_long</span></div>
-          <div class="card-title">Holerites</div>
-          <div class="card-badge"><span class="material-icons" style="font-size:11px;">lock</span> Acesso individual</div>
-        </a>
-        <a href="pages/ferias.html" class="card">
-          <div class="card-icon azul"><span class="material-icons">flight</span></div>
-          <div class="card-title">Solicitação de férias</div>
-        </a>
-        <a href="pages/ausencias.html" class="card">
-          <div class="card-icon azul"><span class="material-icons">event_busy</span></div>
-          <div class="card-title">Faltas e atrasos</div>
-        </a>
-        <a href="pages/equipamentos.html" class="card">
-          <div class="card-icon marinho"><span class="material-icons">laptop</span></div>
-          <div class="card-title">Meus equipamentos</div>
+  <!-- ===================== BOAS-VINDAS ===================== -->
+  <section class="welcome" id="welcome">
+    <div class="welcome-inner">
+      <div class="welcome-text">
+        <div class="welcome-eyebrow">
+          <span class="material-symbols-outlined">door_front</span> Portal do Colaborador
+          <span class="sep">·</span> <span id="localData">Rio Preto</span>
+        </div>
+        <h1 id="greeting">Olá, equipe Porta 8 👋</h1>
+        <p class="welcome-line">Bem-vindo ao seu espaço na Porta 8.</p>
+        <a class="welcome-cta" href="#feed">
+          <span class="material-symbols-outlined">auto_awesome</span>
+          <span id="novidadesTxt">Ver o feed de novidades</span>
         </a>
       </div>
-
-      <div class="divider"></div>
-
-      <!-- SERVIÇOS -->
-      <div class="section-label">Serviços internos</div>
-      <div class="cards-grid">
-        <a href="pages/sala.html" class="card">
-          <div class="card-icon azul"><span class="material-icons">meeting_room</span></div>
-          <div class="card-title">Reservar sala</div>
-        </a>
-        <a href="pages/materiais.html" class="card">
-          <div class="card-icon laranja"><span class="material-icons">shopping_bag</span></div>
-          <div class="card-title">Materiais e insumos</div>
-        </a>
-        <a href="pages/vaga.html" class="card">
-          <div class="card-icon marinho"><span class="material-icons">person_add</span></div>
-          <div class="card-title">Abrir vaga</div>
-        </a>
-        <a href="pages/telefones.html" class="card">
-          <div class="card-icon verde"><span class="material-icons">contact_phone</span></div>
-          <div class="card-title">Telefone corporativo</div>
-        </a>
+      <div class="welcome-door" aria-hidden="true">
+        <div class="door-glow"></div>
+        <div class="door-frame"><div class="door-opening"></div></div>
+        <div class="door-leaf">
+          <span class="door-plate">8</span>
+          <span class="door-knob"></span>
+        </div>
       </div>
-
-      <div class="divider"></div>
-
-      <!-- CULTURA -->
-      <div class="section-label">Cultura e desenvolvimento</div>
-      <div class="cards-grid">
-        <a href="pages/politicas.html" class="card">
-          <div class="card-icon azul"><span class="material-icons">fact_check</span></div>
-          <div class="card-title">Políticas</div>
-        </a>
-        <a href="pages/onboarding.html" class="card">
-          <div class="card-icon marinho"><span class="material-icons">waving_hand</span></div>
-          <div class="card-title">Onboarding</div>
-        </a>
-        <a href="pages/beneficios.html" class="card">
-          <div class="card-icon laranja"><span class="material-icons">volunteer_activism</span></div>
-          <div class="card-title">Benefícios</div>
-        </a>
-        <a href="pages/regras.html" class="card">
-          <div class="card-icon marinho"><span class="material-icons">fact_check</span></div>
-          <div class="card-title">Regras de ouro</div>
-        </a>
-        <a href="pages/trilha.html" class="card">
-          <div class="card-icon verde"><span class="material-icons">school</span></div>
-          <div class="card-title">Trilha Porta8</div>
-        </a>
-        <a href="pages/biblioteca.html" class="card">
-          <div class="card-icon laranja"><span class="material-icons">menu_book</span></div>
-          <div class="card-title">Nossa Biblioteca</div>
-        </a>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- CANAIS SEGUROS -->
-      <div class="section-label">Canais seguros</div>
-      <div class="cards-grid">
-        <a href="pages/clima.html" class="card">
-          <div class="card-icon marinho"><span class="material-icons">mood</span></div>
-          <div class="card-title">Pesquisa de clima</div>
-        </a>
-        <a href="pages/denuncia.html" class="card">
-          <div class="card-icon laranja"><span class="material-icons">campaign</span></div>
-          <div class="card-title">Canal de denúncias</div>
-        </a>
-      </div>
-
     </div>
+  </section>
 
-    <!-- SIDEBAR -->
-    <div style="display: flex; flex-direction: column; gap: 12px;">
+  <!-- ===================== MOTE ===================== -->
+  <section class="mote" aria-label="Nosso mote">
+    <p>
+      <span class="soft">Não vendemos sonhos.</span>
+      <span class="material-symbols-outlined check">check_circle</span>
+      <strong>Resolvemos a parte da vida</strong>
+      <span class="material-symbols-outlined house">home</span>
+      <strong>em que você mora.</strong>
+    </p>
+  </section>
 
-      <!-- REFLEXÃO DO MÊS -->
-      <div class="widget">
-        <div class="widget-header azul">
-          <span class="material-icons" style="font-size:16px;">format_quote</span>
-          <span class="widget-title">Reflexão do mês</span>
-        </div>
-        <div class="widget-body">
-          <p style="font-size:16px; font-weight:700; color:var(--azul); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;">🌿 Setembro | Um novo mês para fazer acontecer</p>
-          <p style="color: var(--marinho); font-size: 14px; line-height: 1.7; margin-bottom: 8px; text-align: justify;">
-            Setembro chegou trazendo novas oportunidades para seguirmos em frente, ajustarmos a rota e transformarmos planos em resultados.
-          </p>
-          <p style="color: var(--marinho); font-size: 14px; line-height: 1.7; margin-bottom: 8px; text-align: justify;">
-            Mais do que iniciar um novo mês, este é um convite para olhar para tudo o que já construímos e perguntar: o que podemos fazer ainda melhor?
-          </p>
-          <p style="color: var(--marinho); font-size: 14px; line-height: 1.7; margin-bottom: 8px; text-align: justify;">
-            Cada atendimento, cada tarefa concluída, cada problema solucionado e cada atitude de colaboração contribuem para algo maior: o resultado da nossa equipe e a experiência que entregamos aos nossos clientes.
-          </p>
-          <p style="color: var(--marinho); font-size: 14px; line-height: 1.7; margin-bottom: 8px; text-align: justify;">
-            Que setembro seja um mês de foco, iniciativa, parceria e evolução. Que possamos reconhecer nossas conquistas, aprender com os desafios e manter o compromisso de fazer bem feito — todos os dias.
-          </p>
-          <p style="color: var(--marinho); font-size: 14px; line-height: 1.7; margin-bottom: 8px; text-align: justify;">
-            Na Porta 8, acreditamos que grandes resultados são construídos por pessoas que fazem a diferença nas pequenas atitudes.
-          </p>
-          <p style="color: var(--marinho); font-size: 14px; line-height: 1.7; margin-bottom: 8px; text-align: justify;">
-            Vamos juntos fazer de setembro um mês de grandes entregas. 🚪💙
-          </p>
-          <p style="font-size: 12px; color: var(--texto-secundario);">Bom mês, equipe Porta 8!</p>
-        </div>
+  <!-- ===================== FILTROS ===================== -->
+  <nav class="filters" id="filters" aria-label="Filtrar feed por categoria"></nav>
+
+  <!-- ===================== LAYOUT ===================== -->
+  <div class="layout">
+
+    <!-- ---- Coluna esquerda: atalhos ---- -->
+    <aside class="rail rail-left">
+      <div class="group">
+        <h3><span class="material-symbols-outlined">badge</span> Minha área</h3>
+        <a class="shortcut" href="pages/holerites.html"><span class="ic orange"><span class="material-symbols-outlined">receipt_long</span></span> Holerites <span class="material-symbols-outlined lock">lock</span></a>
+        <a class="shortcut" href="pages/ferias.html"><span class="ic"><span class="material-symbols-outlined">flight</span></span> Solicitação de férias</a>
+        <a class="shortcut" href="pages/ausencias.html"><span class="ic"><span class="material-symbols-outlined">event_busy</span></span> Faltas e atrasos</a>
+        <a class="shortcut" href="pages/equipamentos.html"><span class="ic"><span class="material-symbols-outlined">laptop</span></span> Meus equipamentos</a>
       </div>
 
-      <!-- ANIVERSARIANTES -->
-      <div class="widget">
-        <div class="widget-header laranja">
-          <span class="material-icons" style="font-size:16px;">cake</span>
-          <span class="widget-title">Aniversariantes do mês</span>
-        </div>
-        <div class="widget-body">
-          <div class="aniv-list">
-            <div style="text-align:center; padding:8px 0;">
-              <p style="font-size:13px; color:var(--texto-secundario); font-weight:600;">Não há aniversariantes em setembro.</p>
-            </div>
-          </div>
-        </div>
+      <div class="group">
+        <h3><span class="material-symbols-outlined">business_center</span> Serviços internos</h3>
+        <a class="shortcut" href="pages/sala.html"><span class="ic"><span class="material-symbols-outlined">meeting_room</span></span> Reservar sala</a>
+        <a class="shortcut" href="pages/materiais.html"><span class="ic orange"><span class="material-symbols-outlined">shopping_bag</span></span> Materiais e insumos</a>
+        <a class="shortcut" href="pages/vaga.html"><span class="ic"><span class="material-symbols-outlined">person_add</span></span> Abrir vaga</a>
+        <a class="shortcut" href="pages/telefones.html"><span class="ic green"><span class="material-symbols-outlined">contact_phone</span></span> Telefone corporativo</a>
       </div>
 
-      <!-- RECADOS -->
-      <div class="widget">
-        <div class="widget-header marinho">
-          <span class="material-icons" style="font-size:16px;">notifications</span>
-          <span class="widget-title">Recados importantes</span>
-        </div>
-        <div class="widget-body">
-
-          <div class="recado-item">
-            <div>
-              <p style="margin-bottom:6px; font-weight:700; color:var(--marinho);">LEMBRETE – UTILIZAÇÃO DAS MESAS DE TRABALHO</p>
-              <p style="margin-bottom:8px; text-align:justify; hyphens:auto;">Para mantermos um ambiente organizado, limpo e confortável para todos, solicitamos que as refeições e lanches sejam realizados nos espaços destinados para esse fim, evitando o consumo de alimentos nas mesas de trabalho.</p>
-              <p style="text-align:justify; hyphens:auto;">Contamos com a colaboração de todos para preservarmos um ambiente mais agradável e profissional.</p>
-            </div>
-            <div class="recado-data">29 jun 2026</div>
-          </div>
-
-        </div>
+      <div class="group">
+        <h3><span class="material-symbols-outlined">school</span> Cultura e desenvolvimento</h3>
+        <a class="shortcut" href="pages/politicas.html"><span class="ic"><span class="material-symbols-outlined">fact_check</span></span> Políticas</a>
+        <a class="shortcut" href="pages/onboarding.html"><span class="ic"><span class="material-symbols-outlined">waving_hand</span></span> Onboarding</a>
+        <a class="shortcut" href="pages/beneficios.html"><span class="ic pink"><span class="material-symbols-outlined">volunteer_activism</span></span> Benefícios</a>
+        <a class="shortcut" href="pages/regras.html"><span class="ic orange"><span class="material-symbols-outlined">fact_check</span></span> Regras de ouro</a>
+        <a class="shortcut" href="pages/trilha.html"><span class="ic purple"><span class="material-symbols-outlined">school</span></span> Trilha Porta8</a>
+        <a class="shortcut" href="pages/biblioteca.html"><span class="ic"><span class="material-symbols-outlined">menu_book</span></span> Nossa Biblioteca</a>
       </div>
 
-    </div>
+      <div class="group">
+        <h3><span class="material-symbols-outlined">shield</span> Canais seguros</h3>
+        <a class="shortcut" href="pages/clima.html"><span class="ic green"><span class="material-symbols-outlined">mood</span></span> Pesquisa de clima</a>
+        <a class="shortcut" href="pages/denuncia.html"><span class="ic orange"><span class="material-symbols-outlined">campaign</span></span> Canal de denúncias</a>
+      </div>
+    </aside>
+
+    <!-- ---- Coluna central: FEED ---- -->
+    <section class="feed" id="feed" aria-live="polite"></section>
+
+    <!-- ---- Coluna direita ---- -->
+    <aside class="rail rail-right">
+      <div class="card vagas">
+        <h3><span class="material-symbols-outlined">work</span> Vagas abertas</h3>
+        <div id="vagasLista"></div>
+        <div class="indicar-box">
+          <p>Conhece alguém com o perfil? Indique e ajude a Porta 8 a crescer.</p>
+          <a class="btn-ind" id="btnIndicar" href="#"><span class="material-symbols-outlined">group_add</span> Indicar alguém</a>
+        </div>
+      </div>
+      <div class="card" id="bdayCard">
+        <h3><span class="material-symbols-outlined">cake</span> Aniversariantes do mês</h3>
+        <div id="bdays"></div>
+      </div>
+      <div class="card help">
+        <h3><span class="material-symbols-outlined">support_agent</span> Precisa de ajuda?</h3>
+        <p>Fale com o RH para dúvidas sobre benefícios, folha e documentos.</p>
+        <a class="shortcut" href="mailto:thais@porta8.com.br?subject=Contato%20com%20o%20RH"><span class="ic"><span class="material-symbols-outlined">mail</span></span> Falar com o RH</a>
+      </div>
+    </aside>
   </div>
 
-</div>
+  <!-- ===================== RODAPÉ ===================== -->
+  <footer>
+    <div class="footer-inner">
+      <b>Portal do Colaborador</b> · Porta8 Imóveis · <a href="https://www.porta8.com.br" target="_blank" rel="noopener">porta8.com.br</a>
+    </div>
+  </footer>
 
-<div class="footer">
-  Portal do Colaborador · Porta8 Imóveis · <a href="https://www.porta8.com.br" target="_blank">porta8.com.br</a>
-</div>
+<script>
+/* Foto de exemplo (desenho embutido). Serve só pra você ver o layout.
+   Nos posts reais, troque por: imagem: "fotos/nome-do-arquivo.jpg" */
+const FOTO_EXEMPLO = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='420'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23EE6C1F'/%3E%3Cstop offset='1' stop-color='%232E63E6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='420' fill='url(%23g)'/%3E%3Ccircle cx='400' cy='150' r='58' fill='rgba(255,255,255,0.9)'/%3E%3Cellipse cx='400' cy='300' rx='110' ry='78' fill='rgba(255,255,255,0.9)'/%3E%3C/svg%3E";
 
+/* =========================================================================
+   COMO EDITAR O FEED  (é só aqui embaixo!)
+   -------------------------------------------------------------------------
+   Cada novidade é um item na lista POSTS. Para publicar uma nova, copie um
+   bloco { ... } inteiro, cole no TOPO da lista e troque os campos:
+
+     data:     data da publicação no formato "AAAA-MM-DD" (ex.: "2026-09-18")
+     categoria:"comunicado" | "reconhecimento" | "evento" | "aniversario" | "reflexao"
+     titulo:   título curto do post
+     autor:    quem está publicando (ex.: "RH Porta 8")
+     texto:    o conteúdo. Use \n para quebrar linha e \n\n para pular linha.
+     fixado:   true  -> fica preso no topo (use em avisos importantes)
+               false -> aparece na ordem normal, por data
+     imagem:   (OPCIONAL) foto do post — ótima para reconhecimento e eventos.
+               1) crie uma pasta chamada "fotos" dentro do repositório
+               2) suba a imagem lá (ex.: joao-vendas.jpg)
+               3) escreva:  imagem: "fotos/joao-vendas.jpg"
+               Se o post não tiver foto, é só apagar essa linha.
+
+   O selo "Novo" aparece sozinho para quem ainda não viu o post desde a
+   última visita — não precisa marcar nada.
+   ========================================================================= */
+
+const POSTS = [
+  {
+    data: "2026-09-01",
+    categoria: "reflexao",
+    titulo: "🌿 Setembro | Um novo mês para fazer acontecer",
+    autor: "Equipe Porta 8",
+    fixado: true,
+    texto:
+`Setembro chegou trazendo novas oportunidades para seguirmos em frente, ajustarmos a rota e transformarmos planos em resultados.
+
+Mais do que iniciar um novo mês, este é um convite para olhar para tudo o que já construímos e perguntar: o que podemos fazer ainda melhor?
+
+Cada atendimento, cada tarefa concluída, cada problema solucionado e cada atitude de colaboração contribuem para algo maior: o resultado da nossa equipe e a experiência que entregamos aos nossos clientes.
+
+Que setembro seja um mês de foco, iniciativa, parceria e evolução. Que possamos reconhecer nossas conquistas, aprender com os desafios e manter o compromisso de fazer bem feito — todos os dias.
+
+Na Porta 8, acreditamos que grandes resultados são construídos por pessoas que fazem a diferença nas pequenas atitudes.
+
+Vamos juntos fazer de setembro um mês de grandes entregas. 🚪💙
+Bom mês, equipe Porta 8!`
+  },
+  {
+    data: "2026-06-29",
+    categoria: "comunicado",
+    titulo: "Lembrete — utilização das mesas de trabalho",
+    autor: "Administrativo",
+    fixado: false,
+    texto:
+`Para mantermos um ambiente organizado, limpo e confortável para todos, solicitamos que as refeições e lanches sejam realizados nos espaços destinados para esse fim, evitando o consumo de alimentos nas mesas de trabalho.
+
+Contamos com a colaboração de todos para preservarmos um ambiente mais agradável e profissional.`
+  },
+
+  /* ----- EXEMPLOS (pode editar ou apagar) ----- */
+  {
+    data: "2026-09-15",
+    categoria: "reconhecimento",
+    titulo: "Mandou bem! 👏",
+    autor: "Diretoria",
+    fixado: false,
+    imagem: FOTO_EXEMPLO,   /* troque por: imagem: "fotos/time-vendas.jpg" */
+    texto:
+`Parabéns ao time de vendas pelo excelente resultado do mês. O empenho de cada um fez a diferença no atendimento aos nossos clientes.
+
+Obrigado por representarem tão bem a Porta 8!`
+  },
+  {
+    data: "2026-09-10",
+    categoria: "evento",
+    titulo: "Café da manhã da equipe — 20/09",
+    autor: "RH Porta 8",
+    fixado: false,
+    texto:
+`No dia 20/09, às 8h30, teremos nosso café da manhã coletivo na copa. Um momento pra começar a semana junto com o time. Sua presença faz o encontro!`
+  }
+];
+
+/* Aniversariantes do mês. Deixe a lista vazia [] quando não houver.
+   Cada pessoa: nome, dia e (opcional) foto.
+   A foto funciona igual à dos posts: suba o arquivo na pasta "fotos" e use
+   foto: "fotos/nome.jpg". Sem foto, aparecem as iniciais coloridas.
+   Quando houver alguém aqui, o portal solta um confete ao abrir. 🎉 */
+const ANIVERSARIANTES = [
+  // Exemplo de como preencher (tire as duas barras do começo da linha):
+  // { nome: "Nome Sobrenome", dia: "12/09", foto: "fotos/nome.jpg" },
+];
+
+/* ===================== VAGAS & INDICAÇÃO (edite aqui) ===================== */
+
+/* Página de indicação (pages/indicacao.html). Ela monta um e-mail para o RH
+   com os dados do candidato. Para trocar o destinatário, edite aquela página. */
+const LINK_INDICACAO = "pages/indicacao.html";
+
+/* Vagas abertas. Deixe a lista vazia [] quando não houver nenhuma.
+   Cada vaga: titulo, area, local, tipo e (opcional) link da vaga/candidatura. */
+const VAGAS = [
+  { titulo:"SDR – Locação", area:"Comercial", local:"Rio Preto - SP", tipo:"CLT", link:"https://www.linkedin.com/jobs/view/4470878626/" }
+];
+
+/* ===================== daqui pra baixo é o motor do portal ===================== */
+
+const CATEGORIAS = {
+  reflexao:      { rotulo:"Reflexão",      cor:"var(--orange)", soft:"var(--orange-soft)", icone:"format_quote" },
+  comunicado:    { rotulo:"Comunicado",    cor:"var(--blue)",   soft:"var(--blue-soft)",   icone:"campaign" },
+  reconhecimento:{ rotulo:"Reconhecimento",cor:"var(--green)",  soft:"var(--green-soft)",  icone:"military_tech" },
+  evento:        { rotulo:"Evento",        cor:"var(--purple)", soft:"var(--purple-soft)", icone:"event" },
+  aniversario:   { rotulo:"Aniversário",   cor:"var(--pink)",   soft:"var(--pink-soft)",   icone:"cake" }
+};
+
+const feedEl = document.getElementById('feed');
+const filtersEl = document.getElementById('filters');
+const searchEl = document.getElementById('search');
+const bellEl = document.getElementById('bell');
+const newCountEl = document.getElementById('newCount');
+
+let filtroAtual = 'todos';
+let termoBusca = '';
+
+/* memória do navegador: última visita, para o selo "Novo" */
+const LAST_KEY = 'porta8_ultima_visita';
+let ultimaVisita = 0;
+try { ultimaVisita = Number(localStorage.getItem(LAST_KEY)) || 0; } catch(e){}
+
+function ehNovo(post){
+  const t = new Date(post.data + 'T00:00:00').getTime();
+  return ultimaVisita > 0 && t > ultimaVisita;
+}
+function iniciais(nome){
+  return nome.trim().split(/\s+/).slice(0,2).map(p=>p[0]).join('').toUpperCase();
+}
+function dataBonita(iso){
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short', year:'numeric' });
+}
+
+/* ---- filtros ---- */
+function montarFiltros(){
+  const usados = [...new Set(POSTS.map(p=>p.categoria))];
+  const ordem = ['todos', ...Object.keys(CATEGORIAS).filter(c=>usados.includes(c))];
+  filtersEl.innerHTML = ordem.map(cat=>{
+    if(cat==='todos') return `<button class="chip active" data-cat="todos">Todos</button>`;
+    const c = CATEGORIAS[cat];
+    return `<button class="chip" data-cat="${cat}"><span class="swatch" style="background:${c.cor}"></span>${c.rotulo}</button>`;
+  }).join('');
+  filtersEl.querySelectorAll('.chip').forEach(ch=>{
+    ch.addEventListener('click', ()=>{
+      filtersEl.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+      ch.classList.add('active');
+      filtroAtual = ch.dataset.cat;
+      render();
+    });
+  });
+}
+
+/* ---- feed ---- */
+function render(){
+  let lista = [...POSTS].sort((a,b)=>{
+    if(a.fixado !== b.fixado) return a.fixado ? -1 : 1;
+    return new Date(b.data) - new Date(a.data);
+  });
+  if(filtroAtual !== 'todos') lista = lista.filter(p=>p.categoria===filtroAtual);
+  if(termoBusca){
+    const t = termoBusca.toLowerCase();
+    lista = lista.filter(p=>(p.titulo+' '+p.texto+' '+p.autor).toLowerCase().includes(t));
+  }
+
+  if(!lista.length){
+    feedEl.innerHTML = `<div class="empty"><span class="material-symbols-outlined">inbox</span><p>Nada por aqui ainda. Quando você quiser, é só publicar a próxima novidade.</p></div>`;
+    return;
+  }
+
+  feedEl.innerHTML = lista.map((p,i)=>{
+    const c = CATEGORIAS[p.categoria] || CATEGORIAS.comunicado;
+    const novo = ehNovo(p) ? `<span class="badge-new">Novo</span>` : '';
+    const pin = p.fixado ? `<span class="pin-flag"><span class="material-symbols-outlined">push_pin</span>Fixado</span>` : '';
+    const precisaClamp = p.texto.length > 340;
+    const img = p.imagem
+      ? `<div class="post-img"><img src="${p.imagem}" alt="${p.titulo}" loading="lazy" onerror="this.closest('.post-img').classList.add('img-missing');this.remove();"></div>`
+      : '';
+    return `
+      <article class="post ${p.fixado?'pinned':''}" style="animation-delay:${i*45}ms" data-cat="${p.categoria}">
+        <div class="post-accent" style="background:${c.cor}"></div>
+        <div class="post-body">
+          <div class="post-head">
+            <div class="avatar" style="background:${c.cor}">${iniciais(p.autor)}</div>
+            <div class="post-meta">
+              <div class="post-author">${p.autor}</div>
+              <div class="post-sub">
+                <span class="tag" style="background:${c.soft};color:${c.cor}"><span class="material-symbols-outlined" style="font-size:14px">${c.icone}</span>${c.rotulo}</span>
+                <span>·</span><span>${dataBonita(p.data)}</span>${pin?'<span>·</span>':''}${pin}
+              </div>
+            </div>
+            ${novo}
+          </div>
+          <h2>${p.titulo}</h2>
+          <div class="post-text ${precisaClamp?'clamped':''}">${p.texto}</div>
+          ${precisaClamp?`<button class="more-btn">Ler mais</button>`:''}
+          ${img}
+        </div>
+      </article>`;
+  }).join('');
+
+  feedEl.querySelectorAll('.more-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const txt = btn.parentElement.querySelector('.post-text');
+      const aberto = !txt.classList.contains('clamped');
+      txt.classList.toggle('clamped');
+      btn.textContent = aberto ? 'Ler mais' : 'Ler menos';
+    });
+  });
+}
+
+/* ---- aniversariantes ---- */
+function montarAniversariantes(){
+  const el = document.getElementById('bdays');
+  const card = document.getElementById('bdayCard');
+  if(!ANIVERSARIANTES.length){
+    el.innerHTML = `<p class="none">Não há aniversariantes este mês.</p>`;
+    return;
+  }
+  card.classList.add('festivo');
+  el.innerHTML = ANIVERSARIANTES.map(a=>{
+    const foto = a.foto
+      ? `<img src="${a.foto}" alt="${a.nome}" onerror="this.parentElement.textContent='${iniciais(a.nome)}'">`
+      : iniciais(a.nome);
+    return `
+    <div class="bday">
+      <div class="avatar" style="background:var(--pink)">${foto}</div>
+      <div><b>${a.nome}</b><small>${a.dia}</small></div>
+    </div>`;
+  }).join('');
+}
+
+/* ---- selo "Novo" e contagem no sino ---- */
+function atualizarContagem(){
+  const n = POSTS.filter(ehNovo).length;
+  newCountEl.textContent = n;
+  bellEl.classList.toggle('has-new', n>0);
+}
+bellEl.addEventListener('click', ()=>{
+  document.querySelector('.feed').scrollIntoView({behavior:'smooth'});
+});
+
+/* ---- busca ---- */
+searchEl.addEventListener('input', e=>{ termoBusca = e.target.value.trim(); render(); });
+
+/* ---- boas-vindas: saudação, data e novidades ---- */
+function saudacao(){
+  const h = new Date().getHours();
+  if(h < 12) return 'Bom dia';
+  if(h < 18) return 'Boa tarde';
+  return 'Boa noite';
+}
+function montarBoasVindas(){
+  document.getElementById('greeting').textContent = saudacao() + ', equipe Porta 8 👋';
+  const hoje = new Date();
+  const data = hoje.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' });
+  document.getElementById('localData').textContent = 'Rio Preto · ' + data;
+
+  const n = POSTS.filter(ehNovo).length;
+  const txt = document.getElementById('novidadesTxt');
+  if(n > 0) txt.textContent = (n === 1 ? '1 novidade' : n + ' novidades') + ' desde sua última visita';
+  else txt.textContent = 'Ver o feed de novidades';
+}
+
+/* ---- porta abrindo (1x por sessão) ---- */
+function revelarPorta(){
+  let visto = false;
+  try { visto = sessionStorage.getItem('porta8_porta') === '1'; } catch(e){}
+  if(!visto){
+    document.getElementById('welcome').classList.add('reveal');
+    try { sessionStorage.setItem('porta8_porta','1'); } catch(e){}
+  }
+}
+
+/* ---- confete de aniversário (1x por sessão) ---- */
+function soltarConfete(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv = document.getElementById('confete');
+  const ctx = cv.getContext('2d');
+  const W = cv.width = innerWidth, H = cv.height = innerHeight;
+  const cores = ['#EE6C1F','#2E63E6','#2FA45A','#E85D9C','#F3B884'];
+  const ps = [];
+  for(let i=0;i<100;i++){
+    ps.push({x:Math.random()*W, y:-20-Math.random()*H*0.5, r:5+Math.random()*6,
+             c:cores[i%cores.length], vy:2+Math.random()*3, vx:-1.5+Math.random()*3,
+             rot:Math.random()*6.28, vr:-.2+Math.random()*.4});
+  }
+  const t0 = performance.now();
+  (function tick(now){
+    const el = now - t0;
+    ctx.clearRect(0,0,W,H);
+    ps.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.02; p.rot+=p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.globalAlpha = Math.max(0, 1 - el/3400);
+      ctx.fillStyle = p.c;
+      ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6);
+      ctx.restore();
+    });
+    if(el < 3400) requestAnimationFrame(tick); else ctx.clearRect(0,0,W,H);
+  })(t0);
+}
+function comemorarAniversarios(){
+  if(!ANIVERSARIANTES.length) return;
+  let ja = false;
+  try { ja = sessionStorage.getItem('porta8_confete') === '1'; } catch(e){}
+  if(!ja){
+    setTimeout(soltarConfete, 500);
+    try { sessionStorage.setItem('porta8_confete','1'); } catch(e){}
+  }
+}
+
+/* ---- vagas & indicação ---- */
+function linkIndicacao(vaga){
+  return LINK_INDICACAO + (vaga ? "?vaga=" + encodeURIComponent(vaga) : "");
+}
+function montarVagas(){
+  const el = document.getElementById('vagasLista');
+  if(!VAGAS.length){
+    el.innerHTML = `<p class="none">Nenhuma vaga aberta no momento — mas você já pode indicar talentos para quando abrirem.</p>`;
+  } else {
+    el.innerHTML = VAGAS.map(v=>{
+      const tags = [v.area, v.tipo, v.local].filter(Boolean).map(t=>`<span>${t}</span>`).join('');
+      const ver = v.link ? `<a class="ver" href="${v.link}" target="_blank" rel="noopener"><span class="material-symbols-outlined">open_in_new</span>Ver vaga</a>` : '';
+      return `<div class="vaga">
+        <div class="vaga-titulo">${v.titulo}</div>
+        <div class="vaga-tags">${tags}</div>
+        <div class="vaga-actions">${ver}<a class="ind" href="${linkIndicacao(v.titulo)}"><span class="material-symbols-outlined">group_add</span>Indicar</a></div>
+      </div>`;
+    }).join('');
+  }
+  document.getElementById('btnIndicar').href = linkIndicacao('');
+}
+
+/* ---- inicializar ---- */
+montarFiltros();
+render();
+montarAniversariantes();
+montarVagas();
+atualizarContagem();
+montarBoasVindas();
+revelarPorta();
+comemorarAniversarios();
+
+/* marca a visita atual DEPOIS de calcular o que era novo,
+   para que na próxima vez o selo "Novo" reflita esta visita */
+try { localStorage.setItem(LAST_KEY, Date.now()); } catch(e){}
+</script>
 </body>
 </html>

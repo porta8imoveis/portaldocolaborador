@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indicar alguém · Portal Porta8</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html" aria-label="Porta8 Imóveis — início"><img class="brand-logo" src="../assets/logo.png" alt="Porta8 Imóveis"></a>
+    <a class="topbar-link" href="../index.html"><span class="material-icons">home</span> Início</a>
+  </div>
+</header>
+
+<div class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="../index.html">Início</a> › Indicar alguém</div>
+    <h1>Indicar alguém</h1>
+    <p>Conhece alguém com o perfil? Indique e ajude a Porta 8 a crescer.</p>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 1.5rem; max-width: 760px;">
+
+  <div class="aviso">
+    <span class="material-icons aviso-icon">info</span>
+    <div class="aviso-text">Preencha os dados abaixo e clique em <strong>Enviar indicação</strong>. Vai abrir o seu programa de e-mail com a mensagem pronta para o RH — é só enviar.</div>
+  </div>
+
+  <form id="form" class="widget" style="padding: 22px;">
+    <div class="campo">
+      <label for="vaga">Vaga</label>
+      <input id="vaga" name="vaga" type="text" placeholder="Ex.: Corretor(a) de Imóveis (ou deixe em branco para indicar um talento)">
+    </div>
+    <div class="campo">
+      <label for="nome">Nome de quem você indica *</label>
+      <input id="nome" name="nome" type="text" required>
+    </div>
+    <div class="campo">
+      <label for="contato">Telefone ou e-mail do candidato *</label>
+      <input id="contato" name="contato" type="text" required>
+    </div>
+    <div class="campo">
+      <label for="motivo">Por que você indica essa pessoa?</label>
+      <textarea id="motivo" name="motivo"></textarea>
+    </div>
+    <div class="campo">
+      <label for="autor">Seu nome *</label>
+      <input id="autor" name="autor" type="text" required>
+    </div>
+    <button class="btn-laranja" type="submit"><span class="material-icons">send</span> Enviar indicação</button>
+  </form>
+
+</div>
+
+<div class="footer">
+  Portal do Colaborador · Porta8 Imóveis · <a href="https://www.porta8.com.br" target="_blank">porta8.com.br</a>
+</div>
+
+<script>
+  /* E-mail do RH que recebe as indicações. Para trocar o destinatário, edite aqui. */
+  var EMAIL_RH = "thais@porta8.com.br";
+
+  var params = new URLSearchParams(location.search);
+  if (params.get("vaga")) document.getElementById("vaga").value = params.get("vaga");
+
+  document.getElementById("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = e.target;
+    var vaga = f.vaga.value.trim();
+    var assunto = vaga ? "Indicação de candidato — " + vaga : "Indicação de candidato";
+    var corpo =
+      "Olá, RH! Gostaria de indicar alguém:\n\n" +
+      "Nome do candidato: " + f.nome.value.trim() + "\n" +
+      "Telefone / e-mail: " + f.contato.value.trim() + "\n" +
+      "Vaga: " + vaga + "\n" +
+      "Por que indico: " + f.motivo.value.trim() + "\n\n" +
+      "Indicado por: " + f.autor.value.trim();
+    location.href = "mailto:" + EMAIL_RH + "?subject=" + encodeURIComponent(assunto) + "&body=" + encodeURIComponent(corpo);
+  });
+</script>
+
+</body>
+</html>
