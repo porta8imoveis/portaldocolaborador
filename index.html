@@ -2,7 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
 <title>Portal do Colaborador · Porta8 Imóveis</title>
 
 <!-- Fontes: Poppins (títulos) + Inter (corpo) + ícones Material Symbols -->
@@ -39,6 +40,8 @@
   }
 
   *{box-sizing:border-box;}
+  :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
@@ -53,7 +56,7 @@
 
   /* ---------- Barra superior ---------- */
   .topbar{
-    position:sticky;top:0;z-index:50;
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:50;
     background:rgba(255,255,255,.86);
     backdrop-filter:saturate(160%) blur(10px);
     border-bottom:1px solid var(--line);
@@ -118,7 +121,7 @@
   .welcome-eyebrow{display:flex;align-items:center;gap:7px;color:#F3B884;font-weight:600;font-size:13px;flex-wrap:wrap;}
   .welcome-eyebrow .material-symbols-outlined{font-size:18px;}
   .welcome-eyebrow .sep{opacity:.45;}
-  .welcome-eyebrow #localData{color:#AEB9D4;font-weight:500;}
+  .welcome-eyebrow #localData{color:#AEB9D4;font-weight:500;text-transform:capitalize;}
   .welcome-text h1{font-family:"Poppins";font-weight:700;color:#fff;font-size:clamp(24px,3.4vw,34px);line-height:1.12;letter-spacing:-.5px;margin:9px 0 8px;}
   .welcome-line{margin:0 0 20px;color:#C6D0E6;font-size:15.5px;max-width:44ch;}
   .welcome-cta{
@@ -257,7 +260,7 @@
   .post-img{margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);line-height:0;background:var(--paper);}
   .post-img img{width:100%;max-height:420px;object-fit:cover;display:block;}
   .post-img.img-missing{min-height:110px;display:grid;place-items:center;border-style:dashed;}
-  .post-img.img-missing::after{content:"Imagem indisponível";color:var(--muted);font-size:13px;padding:16px;text-align:center;}
+  .post-img.img-missing::after{content:"Foto não encontrada — confira o caminho do arquivo";color:var(--muted);font-size:13px;padding:16px;text-align:center;}
 
   .empty{
     text-align:center;color:var(--muted);padding:48px 20px;
@@ -299,6 +302,102 @@
   .btn-ind:hover{filter:brightness(1.06);}
   .btn-ind .material-symbols-outlined{font-size:17px;}
 
+  /* ---------- Escrever novidade (modo editor) ---------- */
+  .col-feed{display:flex;flex-direction:column;gap:16px;min-width:0;}
+  .composer{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-card);overflow:hidden;}
+  .composer[hidden]{display:none;}
+  .cp-closed{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:text;}
+  .cp-closed .avatar{width:40px;height:40px;background:var(--navy);font-size:15px;}
+  .cp-fake{flex:1;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:11px 16px;color:var(--muted);font-size:14.5px;text-align:left;font:inherit;cursor:text;transition:.15s;}
+  .cp-fake:hover{border-color:var(--navy-600);background:#fff;}
+  .cp-open{display:none;}
+  .composer.open .cp-closed{display:none;}
+  .composer.open .cp-open{display:block;}
+  .cp-top{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);}
+  .cp-top h3{margin:0;font-family:"Poppins";font-size:15px;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:8px;}
+  .cp-top h3 .material-symbols-outlined{color:var(--orange);font-size:20px;}
+  .cp-tabs{margin-left:auto;display:flex;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px;}
+  .cp-tabs button{border:0;background:none;font:inherit;font-size:13px;font-weight:600;color:var(--muted);padding:6px 13px;border-radius:999px;cursor:pointer;}
+  .cp-tabs button.on{background:#fff;color:var(--navy);box-shadow:var(--shadow-soft);}
+  .cp-x{border:0;background:none;color:var(--muted);cursor:pointer;padding:4px;border-radius:8px;display:grid;place-items:center;}
+  .cp-x:hover{background:var(--paper);color:var(--navy);}
+  .cp-body{padding:16px 18px 6px;}
+  .cp-label{display:block;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:0 0 7px;}
+  .cp-cats{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+  .cp-cats input{position:absolute;opacity:0;pointer-events:none;}
+  .cp-cats label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--navy-600);cursor:pointer;transition:.15s;}
+  .cp-cats label .material-symbols-outlined{font-size:16px;}
+  .cp-cats input:checked + label{background:var(--c-soft);border-color:var(--c);color:var(--c);}
+  .cp-cats input:focus-visible + label{outline:2px solid var(--blue);outline-offset:2px;}
+  .cp-title{width:100%;border:0;border-bottom:1px solid var(--line);font-family:"Poppins";font-weight:600;font-size:19px;color:var(--navy);padding:6px 0 10px;background:none;outline:none;}
+  .cp-title:focus{border-bottom-color:var(--orange);}
+  .cp-title::placeholder,.cp-text::placeholder{color:#A7B0C4;}
+  .cp-text{width:100%;border:0;outline:none;resize:none;font:inherit;font-size:14.5px;color:#3A465F;line-height:1.6;min-height:150px;padding:12px 0;background:none;}
+  .cp-tools{display:flex;align-items:center;gap:4px;flex-wrap:wrap;padding:6px 0 12px;border-bottom:1px solid var(--line);}
+  .cp-tool{border:0;background:none;cursor:pointer;font-size:18px;line-height:1;padding:6px;border-radius:8px;}
+  .cp-tool:hover{background:var(--paper);}
+  .cp-photo-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:var(--green);cursor:pointer;margin-right:6px;}
+  .cp-photo-btn:hover{border-color:var(--green);}
+  .cp-photo-btn .material-symbols-outlined{font-size:18px;}
+  .cp-count{margin-left:auto;font-size:12px;color:var(--muted);}
+  .cp-thumb{position:relative;margin:12px 0 4px;border-radius:12px;overflow:hidden;border:1px solid var(--line);line-height:0;}
+  .cp-thumb img{width:100%;max-height:260px;object-fit:cover;}
+  .cp-thumb button{position:absolute;top:8px;right:8px;border:0;border-radius:999px;background:rgba(22,34,63,.75);color:#fff;cursor:pointer;padding:5px;display:grid;place-items:center;}
+  .cp-thumb small{position:absolute;left:8px;bottom:8px;background:rgba(22,34,63,.75);color:#fff;font-size:11.5px;line-height:1.3;padding:4px 9px;border-radius:999px;}
+  .cp-meta{display:grid;grid-template-columns:1.4fr 1fr;gap:12px;padding:14px 0 4px;}
+  .cp-field input[type=text],.cp-field input[type=date]{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 11px;font:inherit;font-size:14px;color:var(--ink);background:#fff;}
+  .cp-field input:focus{outline:none;border-color:var(--blue);}
+  .cp-pin{display:flex;align-items:center;gap:10px;padding:12px 0 6px;font-size:14px;color:var(--navy-600);cursor:pointer;}
+  .cp-pin input{width:17px;height:17px;accent-color:var(--orange);}
+  .cp-pin small{color:var(--muted);}
+  .cp-preview{padding:16px 18px;background:var(--paper);}
+  .cp-preview .post{animation:none;opacity:1;transform:none;}
+  .cp-foot{display:flex;align-items:center;gap:10px;padding:12px 18px 16px;flex-wrap:wrap;}
+  .cp-hint{font-size:12.5px;color:var(--muted);}
+  .cp-hint a{color:var(--blue);font-weight:600;cursor:pointer;}
+  .cp-error{color:#C0392B;font-size:13px;font-weight:600;}
+  .btn-pub{margin-left:auto;display:inline-flex;align-items:center;gap:7px;border:0;background:var(--orange);color:#fff;font:inherit;font-weight:600;font-size:14px;padding:10px 20px;border-radius:999px;cursor:pointer;transition:.15s;}
+  .btn-pub:hover{filter:brightness(1.06);transform:translateY(-1px);}
+  .btn-pub .material-symbols-outlined{font-size:19px;}
+  .btn-ghost{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;color:var(--navy-600);font:inherit;font-weight:600;font-size:13px;padding:7px 13px;border-radius:999px;cursor:pointer;}
+  .btn-ghost:hover{border-color:var(--navy-600);}
+  .btn-ghost .material-symbols-outlined{font-size:17px;}
+  .btn-ghost.danger{color:#C0392B;}
+
+  /* ações de quem pode editar */
+  .post-actions{display:flex;gap:8px;flex-wrap:wrap;padding:10px 20px;border-top:1px solid var(--line);background:#FAFBFD;}
+  .loading{padding:40px 20px;text-align:center;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);}
+  .cp-editing{display:none;align-items:center;gap:8px;margin:0 18px;padding:9px 12px;border-radius:10px;background:var(--blue-soft);color:var(--blue);font-size:13px;font-weight:600;}
+  .composer.editing .cp-editing{display:flex;}
+  .btn-pub[disabled]{opacity:.6;cursor:wait;transform:none;}
+  /* post que só existe neste navegador */
+  .post.local{border-style:dashed;border-color:#F0B98F;}
+  .badge-local{margin-left:auto;background:var(--orange-soft);color:var(--orange);font-weight:700;font-size:11px;padding:3px 9px;border-radius:999px;flex-shrink:0;}
+  .local-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:11px 20px;background:var(--orange-soft);border-top:1px dashed #F0B98F;font-size:12.5px;color:#8A4A16;}
+  .local-bar span.msg{flex:1 1 220px;}
+
+  /* janela "falta um passo" */
+  .modal{position:fixed;inset:0;z-index:300;background:rgba(22,34,63,.45);display:none;align-items:center;justify-content:center;padding:18px;}
+  .modal.show{display:flex;}
+  .modal-box{background:#fff;border-radius:18px;max-width:620px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 20px 60px rgba(22,34,63,.3);}
+  .modal-head{padding:20px 22px 6px;display:flex;align-items:flex-start;gap:12px;}
+  .modal-head .ok{width:40px;height:40px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;flex-shrink:0;}
+  .modal-head h3{margin:0;font-family:"Poppins";font-size:17px;color:var(--navy);}
+  .modal-head p{margin:3px 0 0;color:var(--muted);font-size:13.5px;}
+  .modal-head .cp-x{margin-left:auto;}
+  .steps{list-style:none;margin:10px 22px 0;padding:0;counter-reset:s;}
+  .steps li{counter-increment:s;position:relative;padding:10px 0 10px 38px;font-size:14px;color:var(--ink);border-bottom:1px solid var(--line);}
+  .steps li:last-child{border-bottom:0;}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;font-size:13px;display:grid;place-items:center;}
+  .steps code{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:12.5px;}
+  .codebox{margin:8px 0 2px;position:relative;}
+  .codebox pre{margin:0;background:var(--navy);color:#E3E9F7;border-radius:12px;padding:14px;font-size:12px;line-height:1.5;max-height:220px;overflow:auto;white-space:pre-wrap;word-break:break-word;}
+  .steps .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+  .modal-foot{padding:14px 22px 20px;display:flex;justify-content:flex-end;}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;font-size:13.5px;font-weight:600;opacity:0;transition:.25s;z-index:400;pointer-events:none;}
+  .toast.show{opacity:1;transform:translateX(-50%);}
+  @media (max-width:560px){ .cp-meta{grid-template-columns:1fr;} .cp-top{flex-wrap:wrap;} .cp-tabs{margin-left:0;order:3;} }
+
   /* ---------- Confete ---------- */
   .confete{position:fixed;inset:0;pointer-events:none;z-index:200;}
 
@@ -313,7 +412,7 @@
     .rail{position:static;flex-direction:row;flex-wrap:wrap;}
     .rail .group,.rail .card{flex:1 1 260px;}
     .rail-left{order:2;}
-    .feed{order:1;}
+    .col-feed{order:1;}
     .rail-right{order:3;}
   }
   @media (max-width:700px){
@@ -426,8 +525,62 @@
       </div>
     </aside>
 
-    <!-- ---- Coluna central: FEED ---- -->
-    <section class="feed" id="feed" aria-live="polite"></section>
+    <!-- ---- Coluna central: ESCREVER + FEED ---- -->
+    <div class="col-feed">
+      <!-- Só aparece para quem pode publicar (dona do portal e quem tiver acesso de Editor) -->
+      <div class="composer" id="composer" hidden>
+        <div class="cp-closed" id="cpClosed">
+          <div class="avatar">P8</div>
+          <button class="cp-fake" type="button" id="cpOpenBtn">Escrever uma novidade para a equipe…</button>
+        </div>
+        <div class="cp-open">
+          <div class="cp-top">
+            <h3><span class="material-symbols-outlined">edit_square</span> Nova publicação</h3>
+            <div class="cp-tabs" role="tablist">
+              <button type="button" class="on" data-tab="escrever" role="tab">Escrever</button>
+              <button type="button" data-tab="previa" role="tab">Prévia</button>
+            </div>
+            <button type="button" class="cp-x" id="cpClose" title="Fechar" aria-label="Fechar"><span class="material-symbols-outlined">close</span></button>
+          </div>
+          <div class="cp-editing" id="cpEditing"><span class="material-symbols-outlined" style="font-size:18px">edit</span> Editando um post já publicado</div>
+          <div class="cp-body" id="cpWrite">
+            <span class="cp-label">Tipo de post</span>
+            <div class="cp-cats" id="cpCats"></div>
+            <input class="cp-title" id="cpTitulo" type="text" maxlength="100" placeholder="Título da novidade" />
+            <textarea class="cp-text" id="cpTexto" placeholder="Escreva aqui… Deixe uma linha em branco para separar parágrafos."></textarea>
+            <div class="cp-thumb" id="cpThumb" hidden>
+              <img id="cpThumbImg" alt="Foto do post" />
+              <button type="button" id="cpFotoRemove" title="Remover foto" aria-label="Remover foto"><span class="material-symbols-outlined">close</span></button>
+              <small id="cpFotoNome"></small>
+            </div>
+            <div class="cp-tools">
+              <button type="button" class="cp-photo-btn" id="cpFotoBtn"><span class="material-symbols-outlined">add_photo_alternate</span> Foto</button>
+              <input type="file" id="cpFoto" accept="image/*" hidden />
+              <button type="button" class="cp-tool" data-emoji="🚪" title="Inserir emoji">🚪</button>
+              <button type="button" class="cp-tool" data-emoji="💙" title="Inserir emoji">💙</button>
+              <button type="button" class="cp-tool" data-emoji="👏" title="Inserir emoji">👏</button>
+              <button type="button" class="cp-tool" data-emoji="🎉" title="Inserir emoji">🎉</button>
+              <button type="button" class="cp-tool" data-emoji="🏡" title="Inserir emoji">🏡</button>
+              <button type="button" class="cp-tool" data-emoji="📣" title="Inserir emoji">📣</button>
+              <span class="cp-count" id="cpCount">0 caracteres</span>
+            </div>
+            <div class="cp-meta">
+              <label class="cp-field"><span class="cp-label">Quem publica</span><input type="text" id="cpAutor" list="cpAutores" /></label>
+              <label class="cp-field"><span class="cp-label">Data</span><input type="date" id="cpData" /></label>
+              <datalist id="cpAutores"></datalist>
+            </div>
+            <label class="cp-pin"><input type="checkbox" id="cpFixado" /> Fixar no topo do feed <small>— para avisos importantes</small></label>
+          </div>
+          <div class="cp-preview" id="cpPreview" hidden></div>
+          <div class="cp-foot">
+            <span class="cp-hint" id="cpHint">Ctrl + Enter publica</span>
+            <button type="button" class="btn-pub" id="cpPublicar"><span class="material-symbols-outlined">send</span> Publicar</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="feed" id="feed" aria-live="polite"></section>
+    </div>
 
     <!-- ---- Coluna direita ---- -->
     <aside class="rail rail-right">
@@ -451,6 +604,23 @@
     </aside>
   </div>
 
+  <!-- ===================== JANELA "FALTA UM PASSO" ===================== -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div class="ok"><span class="material-symbols-outlined">check</span></div>
+        <div>
+          <h3 id="modalTitulo">Post criado! Falta um passo para a equipe ver</h3>
+          <p>Por enquanto ele aparece só aqui no seu navegador. Para ir ao ar para todos:</p>
+        </div>
+        <button type="button" class="cp-x" id="modalClose" aria-label="Fechar"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <ol class="steps" id="modalSteps"></ol>
+      <div class="modal-foot"><button type="button" class="btn-pub" id="modalOk">Entendi</button></div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
   <!-- ===================== RODAPÉ ===================== -->
   <footer>
     <div class="footer-inner">
@@ -466,8 +636,12 @@ const FOTO_EXEMPLO = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 /* =========================================================================
    COMO EDITAR O FEED  (é só aqui embaixo!)
    -------------------------------------------------------------------------
-   Cada novidade é um item na lista POSTS. Para publicar uma nova, copie um
-   bloco { ... } inteiro, cole no TOPO da lista e troque os campos:
+   AGORA OS POSTS TAMBÉM PODEM SER PUBLICADOS DIRETO NO PORTAL: use a caixa
+   "Escrever uma novidade" no topo do feed (aparece para quem pode publicar).
+
+   Se preferir editar o código, continua funcionando igual: cada novidade é
+   um item na lista POSTS. Para publicar uma nova, copie um bloco { ... }
+   inteiro, cole no TOPO da lista e troque os campos:
 
      data:     data da publicação no formato "AAAA-MM-DD" (ex.: "2026-09-18")
      categoria:"comunicado" | "reconhecimento" | "evento" | "aniversario" | "reflexao"
@@ -555,6 +729,10 @@ const ANIVERSARIANTES = [
 
 /* ===================== VAGAS & INDICAÇÃO (edite aqui) ===================== */
 
+/* E-mail do RH que recebe as indicações, caso a página de indicação não
+   esteja configurada abaixo. */
+const EMAIL_RH = "thais@porta8.com.br";
+
 /* Página de indicação (pages/indicacao.html). Ela monta um e-mail para o RH
    com os dados do candidato. Para trocar o destinatário, edite aquela página. */
 const LINK_INDICACAO = "pages/indicacao.html";
@@ -589,6 +767,22 @@ const LAST_KEY = 'porta8_ultima_visita';
 let ultimaVisita = 0;
 try { ultimaVisita = Number(localStorage.getItem(LAST_KEY)) || 0; } catch(e){}
 
+/* posts guardados no portal (banco de dados do artifact, quando existir) */
+let DB_POSTS = null;          /* null = ainda não carregou / fora do Claude */
+let dbRef = null, assetsRef = null, userRef = null;
+let podeEditar = false;
+let carregando = !!window.claude;
+/* modo arquivo: portal aberto fora do link do Claude (computador, repositório).
+   A caixa de postar aparece e gera o código para colar na lista POSTS. */
+let modoArquivo = false;
+const DRAFT_KEY = 'porta8_rascunhos';
+let LOCAIS = [];
+try { LOCAIS = JSON.parse(localStorage.getItem(DRAFT_KEY)) || []; } catch(e){ LOCAIS = []; }
+function salvarLocais(){
+  try { localStorage.setItem(DRAFT_KEY, JSON.stringify(LOCAIS)); return true; }
+  catch(e){ return false; }
+}
+
 function ehNovo(post){
   const t = new Date(post.data + 'T00:00:00').getTime();
   return ultimaVisita > 0 && t > ultimaVisita;
@@ -603,12 +797,14 @@ function dataBonita(iso){
 
 /* ---- filtros ---- */
 function montarFiltros(){
-  const usados = [...new Set(POSTS.map(p=>p.categoria))];
+  const usados = [...new Set(todosPosts().map(p=>p.categoria))];
   const ordem = ['todos', ...Object.keys(CATEGORIAS).filter(c=>usados.includes(c))];
+  if(!ordem.includes(filtroAtual)) filtroAtual = 'todos';
   filtersEl.innerHTML = ordem.map(cat=>{
-    if(cat==='todos') return `<button class="chip active" data-cat="todos">Todos</button>`;
+    const on = cat===filtroAtual ? ' active' : '';
+    if(cat==='todos') return `<button class="chip${on}" data-cat="todos">Todos</button>`;
     const c = CATEGORIAS[cat];
-    return `<button class="chip" data-cat="${cat}"><span class="swatch" style="background:${c.cor}"></span>${c.rotulo}</button>`;
+    return `<button class="chip${on}" data-cat="${cat}"><span class="swatch" style="background:${c.cor}"></span>${c.rotulo}</button>`;
   }).join('');
   filtersEl.querySelectorAll('.chip').forEach(ch=>{
     ch.addEventListener('click', ()=>{
@@ -621,10 +817,72 @@ function montarFiltros(){
 }
 
 /* ---- feed ---- */
+function esc(t){ return String(t).replace(/[&<>"]/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch])); }
+
+function srcImagem(v){
+  if(!v) return '';
+  return /^[0-9a-f]{32}$/.test(v) ? '/_blob/' + v : v;
+}
+
+function postHTML(p, i){
+  const c = CATEGORIAS[p.categoria] || CATEGORIAS.comunicado;
+  const local = !!p._id;
+  const doBanco = !!p._doc || p._previa || local;
+  const titulo = doBanco ? esc(p.titulo) : p.titulo;
+  const texto  = doBanco ? esc(p.texto)  : p.texto;
+  const autor  = doBanco ? esc(p.autor)  : p.autor;
+  const selo = local ? `<span class="badge-local">Só você vê</span>` : ((p._previa || ehNovo(p)) ? `<span class="badge-new">Novo</span>` : '');
+  const pin = p.fixado ? `<span class="pin-flag"><span class="material-symbols-outlined">push_pin</span>Fixado</span>` : '';
+  const precisaClamp = p.texto.length > 340;
+  const src = p.imagemPreview || srcImagem(p.imagem);
+  const img = src
+    ? `<div class="post-img"><img src="${src}" alt="${titulo}" loading="lazy" onerror="this.closest('.post-img').classList.add('img-missing');this.remove();"></div>`
+    : '';
+  const acoes = (podeEditar && p._doc) ? `
+      <div class="post-actions">
+        <button type="button" class="btn-ghost" data-editar="${p._doc}"><span class="material-symbols-outlined">edit</span>Editar</button>
+        <button type="button" class="btn-ghost" data-fixar="${p._doc}"><span class="material-symbols-outlined">push_pin</span>${p.fixado?'Desafixar':'Fixar no topo'}</button>
+        <button type="button" class="btn-ghost danger" data-apagar="${p._doc}"><span class="material-symbols-outlined">delete</span>Excluir</button>
+      </div>` : (local ? `
+      <div class="local-bar">
+        <span class="msg">Aparece só neste navegador. Cole o código no portal para a equipe ver.</span>
+        <button type="button" class="btn-ghost" data-codigo="${p._id}"><span class="material-symbols-outlined">code</span>Ver código</button>
+        <button type="button" class="btn-ghost danger" data-apagarlocal="${p._id}"><span class="material-symbols-outlined">delete</span>Excluir</button>
+      </div>` : '');
+  return `
+    <article class="post ${p.fixado?'pinned':''} ${local?'local':''}" style="animation-delay:${Math.min(i,8)*45}ms" data-cat="${p.categoria}">
+      <div class="post-accent" style="background:${c.cor}"></div>
+      <div class="post-body">
+        <div class="post-head">
+          <div class="avatar" style="background:${c.cor}">${iniciais(p.autor||'P8')}</div>
+          <div class="post-meta">
+            <div class="post-author">${autor}</div>
+            <div class="post-sub">
+              <span class="tag" style="background:${c.soft};color:${c.cor}"><span class="material-symbols-outlined" style="font-size:14px">${c.icone}</span>${c.rotulo}</span>
+              <span>·</span><span>${dataBonita(p.data)}</span>${pin?'<span>·</span>':''}${pin}
+            </div>
+          </div>
+          ${selo}
+        </div>
+        <h2>${titulo}</h2>
+        <div class="post-text ${precisaClamp?'clamped':''}">${texto}</div>
+        ${precisaClamp?`<button class="more-btn">Ler mais</button>`:''}
+        ${img}
+      </div>${acoes}
+    </article>`;
+}
+
+function todosPosts(){ return DB_POSTS !== null ? DB_POSTS : (carregando ? [] : [...LOCAIS, ...POSTS]); }
+
 function render(){
-  let lista = [...POSTS].sort((a,b)=>{
-    if(a.fixado !== b.fixado) return a.fixado ? -1 : 1;
-    return new Date(b.data) - new Date(a.data);
+  if(carregando && DB_POSTS === null){
+    feedEl.innerHTML = `<div class="loading">Carregando novidades…</div>`;
+    return;
+  }
+  let lista = [...todosPosts()].sort((a,b)=>{
+    if(!!a.fixado !== !!b.fixado) return a.fixado ? -1 : 1;
+    const d = new Date(b.data) - new Date(a.data);
+    return d || ((b.criadoEm||0) - (a.criadoEm||0));
   });
   if(filtroAtual !== 'todos') lista = lista.filter(p=>p.categoria===filtroAtual);
   if(termoBusca){
@@ -637,36 +895,7 @@ function render(){
     return;
   }
 
-  feedEl.innerHTML = lista.map((p,i)=>{
-    const c = CATEGORIAS[p.categoria] || CATEGORIAS.comunicado;
-    const novo = ehNovo(p) ? `<span class="badge-new">Novo</span>` : '';
-    const pin = p.fixado ? `<span class="pin-flag"><span class="material-symbols-outlined">push_pin</span>Fixado</span>` : '';
-    const precisaClamp = p.texto.length > 340;
-    const img = p.imagem
-      ? `<div class="post-img"><img src="${p.imagem}" alt="${p.titulo}" loading="lazy" onerror="this.closest('.post-img').classList.add('img-missing');this.remove();"></div>`
-      : '';
-    return `
-      <article class="post ${p.fixado?'pinned':''}" style="animation-delay:${i*45}ms" data-cat="${p.categoria}">
-        <div class="post-accent" style="background:${c.cor}"></div>
-        <div class="post-body">
-          <div class="post-head">
-            <div class="avatar" style="background:${c.cor}">${iniciais(p.autor)}</div>
-            <div class="post-meta">
-              <div class="post-author">${p.autor}</div>
-              <div class="post-sub">
-                <span class="tag" style="background:${c.soft};color:${c.cor}"><span class="material-symbols-outlined" style="font-size:14px">${c.icone}</span>${c.rotulo}</span>
-                <span>·</span><span>${dataBonita(p.data)}</span>${pin?'<span>·</span>':''}${pin}
-              </div>
-            </div>
-            ${novo}
-          </div>
-          <h2>${p.titulo}</h2>
-          <div class="post-text ${precisaClamp?'clamped':''}">${p.texto}</div>
-          ${precisaClamp?`<button class="more-btn">Ler mais</button>`:''}
-          ${img}
-        </div>
-      </article>`;
-  }).join('');
+  feedEl.innerHTML = lista.map(postHTML).join('');
 
   feedEl.querySelectorAll('.more-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -676,6 +905,17 @@ function render(){
       btn.textContent = aberto ? 'Ler mais' : 'Ler menos';
     });
   });
+  feedEl.querySelectorAll('[data-editar]').forEach(b=>b.addEventListener('click', ()=>editarPost(b.dataset.editar)));
+  feedEl.querySelectorAll('[data-fixar]').forEach(b=>b.addEventListener('click', ()=>alternarFixado(b.dataset.fixar, b)));
+  feedEl.querySelectorAll('[data-apagar]').forEach(b=>b.addEventListener('click', ()=>apagarPost(b.dataset.apagar, b)));
+  feedEl.querySelectorAll('[data-codigo]').forEach(b=>b.addEventListener('click', ()=>{
+    const r = LOCAIS.find(x=>x._id===b.dataset.codigo); if(r) abrirModal(r);
+  }));
+  feedEl.querySelectorAll('[data-apagarlocal]').forEach(b=>b.addEventListener('click', ()=>{
+    if(!confirm('Excluir este rascunho? (Se você já colou o código no portal, o post continua lá.)')) return;
+    LOCAIS = LOCAIS.filter(x=>x._id!==b.dataset.apagarlocal);
+    salvarLocais(); aoMudarPosts(); toast('Rascunho excluído');
+  }));
 }
 
 /* ---- aniversariantes ---- */
@@ -701,7 +941,7 @@ function montarAniversariantes(){
 
 /* ---- selo "Novo" e contagem no sino ---- */
 function atualizarContagem(){
-  const n = POSTS.filter(ehNovo).length;
+  const n = todosPosts().filter(ehNovo).length;
   newCountEl.textContent = n;
   bellEl.classList.toggle('has-new', n>0);
 }
@@ -725,7 +965,7 @@ function montarBoasVindas(){
   const data = hoje.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' });
   document.getElementById('localData').textContent = 'Rio Preto · ' + data;
 
-  const n = POSTS.filter(ehNovo).length;
+  const n = todosPosts().filter(ehNovo).length;
   const txt = document.getElementById('novidadesTxt');
   if(n > 0) txt.textContent = (n === 1 ? '1 novidade' : n + ' novidades') + ' desde sua última visita';
   else txt.textContent = 'Ver o feed de novidades';
@@ -781,7 +1021,10 @@ function comemorarAniversarios(){
 
 /* ---- vagas & indicação ---- */
 function linkIndicacao(vaga){
-  return LINK_INDICACAO + (vaga ? "?vaga=" + encodeURIComponent(vaga) : "");
+  if(LINK_INDICACAO) return LINK_INDICACAO + (vaga ? "?vaga=" + encodeURIComponent(vaga) : "");
+  const assunto = vaga ? "Indicação de candidato — " + vaga : "Indicação de candidato";
+  const corpo = "Olá, RH! Gostaria de indicar alguém:\n\nNome do candidato:\nTelefone / e-mail:\nVaga: " + (vaga||"") + "\nPor que indico:\n";
+  return "mailto:" + EMAIL_RH + "?subject=" + encodeURIComponent(assunto) + "&body=" + encodeURIComponent(corpo);
 }
 function montarVagas(){
   const el = document.getElementById('vagasLista');
@@ -801,6 +1044,329 @@ function montarVagas(){
   document.getElementById('btnIndicar').href = linkIndicacao('');
 }
 
+/* =====================================================================
+   ESCREVER NOVIDADE
+   A caixa aparece sozinha para quem pode publicar: a dona do portal e
+   quem ela compartilhar com acesso de Editor. Os demais só leem.
+   ===================================================================== */
+const AUTOR_KEY = 'porta8_ultimo_autor';
+const composer = document.getElementById('composer');
+const $ = id => document.getElementById(id);
+let fotoNova = null;        /* { blob, preview } — foto escolhida agora */
+let fotoExistente = null;   /* id da foto de um post que está sendo editado */
+let editandoId = null;
+let publicando = false;
+
+function hojeISO(){
+  const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().slice(0,10);
+}
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+function montarComposer(){
+  composer.hidden = !podeEditar;
+  if(!podeEditar) return;
+  $('cpCats').innerHTML = Object.entries(CATEGORIAS).map(([k,c],i)=>`
+    <input type="radio" name="cpCat" id="cat-${k}" value="${k}" ${i===1?'checked':''}>
+    <label for="cat-${k}" style="--c:${c.cor};--c-soft:${c.soft}"><span class="material-symbols-outlined">${c.icone}</span>${c.rotulo}</label>`).join('');
+  atualizarAutores();
+  limparComposer();
+}
+function atualizarAutores(){
+  const autores = [...new Set(['Equipe Porta 8','RH Porta 8','Diretoria','Administrativo', ...todosPosts().map(p=>p.autor)])];
+  $('cpAutores').innerHTML = autores.map(a=>`<option value="${esc(a)}">`).join('');
+}
+
+function limparComposer(){
+  editandoId = null; composer.classList.remove('editing');
+  $('cpTitulo').value = ''; $('cpTexto').value = ''; $('cpFixado').checked = false;
+  $('cpData').value = hojeISO();
+  const primeira = document.querySelector('input[name=cpCat][value=comunicado]'); if(primeira) primeira.checked = true;
+  let autor = 'Equipe Porta 8'; try { autor = localStorage.getItem(AUTOR_KEY) || autor; } catch(e){}
+  $('cpAutor').value = autor;
+  removerFoto(); ajustarAltura(); contar(); trocarAba('escrever');
+  $('cpPublicar').innerHTML = '<span class="material-symbols-outlined">send</span> Publicar';
+  $('cpHint').textContent = modoArquivo
+    ? 'Ctrl + Enter publica · você recebe o código para colar no portal'
+    : 'Ctrl + Enter publica · aparece na hora para toda a equipe';
+}
+
+function lerComposer(){
+  return {
+    data: $('cpData').value || hojeISO(),
+    categoria: (document.querySelector('input[name=cpCat]:checked')||{}).value || 'comunicado',
+    titulo: $('cpTitulo').value.trim(),
+    autor: $('cpAutor').value.trim() || 'Equipe Porta 8',
+    fixado: $('cpFixado').checked,
+    texto: $('cpTexto').value.replace(/\s+$/,'')
+  };
+}
+
+function abrirComposer(){ composer.classList.add('open'); setTimeout(()=>$('cpTitulo').focus(), 30); }
+function fecharComposer(force){
+  const temTexto = $('cpTitulo').value.trim() || $('cpTexto').value.trim();
+  if(!force && temTexto && !confirm('Descartar o que você escreveu?')) return;
+  composer.classList.remove('open'); limparComposer();
+}
+function trocarAba(aba){
+  document.querySelectorAll('.cp-tabs button').forEach(b=>b.classList.toggle('on', b.dataset.tab===aba));
+  const prev = aba === 'previa';
+  $('cpWrite').hidden = prev; $('cpPreview').hidden = !prev;
+  if(prev){
+    const p = lerComposer();
+    if(!p.titulo) p.titulo = 'Título da novidade';
+    if(!p.texto) p.texto = 'O texto do post aparece aqui.';
+    p.imagemPreview = fotoNova ? fotoNova.preview : srcImagem(fotoExistente);
+    $('cpPreview').innerHTML = postHTML({...p, _previa:true}, 0);
+    const mb = $('cpPreview').querySelector('.more-btn');
+    if(mb) mb.addEventListener('click', ()=>{ const t=$('cpPreview').querySelector('.post-text'); t.classList.toggle('clamped'); mb.textContent = t.classList.contains('clamped')?'Ler mais':'Ler menos'; });
+  }
+}
+function ajustarAltura(){ const t=$('cpTexto'); t.style.height='auto'; t.style.height=Math.max(150,t.scrollHeight)+'px'; }
+function contar(){
+  const n = $('cpTexto').value.length;
+  $('cpCount').textContent = n + (n===1?' caractere':' caracteres') + (n>340?' · vai aparecer com “Ler mais”':'');
+}
+
+/* foto: reduz para no máx. 1600px antes de subir */
+function carregarFoto(file){
+  if(!file || !file.type.startsWith('image/')) return;
+  const url = URL.createObjectURL(file);
+  const img = new Image();
+  img.onload = ()=>{
+    const max = 1600, k = Math.min(1, max/Math.max(img.width,img.height));
+    const cv = document.createElement('canvas');
+    cv.width = Math.round(img.width*k); cv.height = Math.round(img.height*k);
+    const cx = cv.getContext('2d'); cx.fillStyle='#fff'; cx.fillRect(0,0,cv.width,cv.height);
+    cx.drawImage(img,0,0,cv.width,cv.height);
+    URL.revokeObjectURL(url);
+    cv.toBlob(blob=>{
+      if(!blob){ toast('Não consegui ler essa foto'); return; }
+      fotoNova = { blob, preview: URL.createObjectURL(blob), nome: file.name };
+      fotoExistente = null;
+      mostrarFoto(fotoNova.preview, file.name);
+    }, 'image/jpeg', .85);
+  };
+  img.onerror = ()=>{ URL.revokeObjectURL(url); toast('Não consegui ler essa foto'); };
+  img.src = url;
+}
+function mostrarFoto(src, nome){
+  $('cpThumbImg').src = src; $('cpFotoNome').textContent = nome || 'Foto do post';
+  $('cpThumb').hidden = false;
+}
+function removerFoto(){
+  if(fotoNova) URL.revokeObjectURL(fotoNova.preview);
+  fotoNova = null; fotoExistente = null; $('cpThumb').hidden = true; $('cpFoto').value = '';
+}
+
+function erroAmigavel(e){
+  const c = e && e.code;
+  if(c === 'quota_exceeded') return 'O espaço do portal está cheio. Exclua posts antigos e tente de novo.';
+  if(c === 'invalid_argument' || c === 'not_granted') return 'Você não tem permissão para publicar aqui.';
+  if(c === 'too_large' || c === 'payload_too_large') return 'Foto grande demais. Tente outra.';
+  return 'Não deu para publicar agora. Tente de novo em instantes.';
+}
+
+async function publicar(){
+  if(publicando) return;
+  const p = lerComposer();
+  if(!p.titulo || !p.texto.trim()){
+    $('cpHint').innerHTML = `<span class="cp-error">${!p.titulo ? 'Falta o título.' : 'Falta o texto.'}</span>`;
+    trocarAba('escrever'); (!p.titulo ? $('cpTitulo') : $('cpTexto')).focus();
+    return;
+  }
+  if(!dbRef){ return publicarNoArquivo(p); }
+  publicando = true;
+  const btn = $('cpPublicar'); btn.disabled = true;
+  btn.innerHTML = '<span class="material-symbols-outlined">hourglass_top</span> Publicando…';
+  try {
+    let imagem = fotoExistente || null;
+    if(fotoNova){
+      if(!assetsRef) throw { code:'not_granted' };
+      const up = await assetsRef.upload(fotoNova.blob, { type:'image/jpeg' });
+      imagem = up.id;
+    }
+    const corpo = { ...p, imagem };
+    if(editandoId){
+      const antigo = (DB_POSTS||[]).find(x=>x._doc===editandoId);
+      corpo.criadoEm = (antigo && antigo.criadoEm) || Date.now();
+      await dbRef.collection('posts').doc(editandoId).set(corpo);
+      if(antigo && antigo.imagem && antigo.imagem !== imagem && assetsRef){ assetsRef.delete(antigo.imagem).catch(()=>{}); }
+      toast('Post atualizado ✓');
+    } else {
+      corpo.criadoEm = Date.now();
+      await dbRef.collection('posts').add(corpo);
+      toast('Publicado! Já está no feed da equipe ✓');
+    }
+    try { localStorage.setItem(AUTOR_KEY, p.autor); } catch(e){}
+    fecharComposer(true);
+  } catch(e){
+    $('cpHint').innerHTML = `<span class="cp-error">${erroAmigavel(e)}</span>`;
+  } finally {
+    publicando = false; btn.disabled = false;
+    if(!editandoId) btn.innerHTML = '<span class="material-symbols-outlined">send</span> Publicar';
+    else btn.innerHTML = '<span class="material-symbols-outlined">save</span> Salvar alterações';
+  }
+}
+
+function editarPost(id){
+  const p = (DB_POSTS||[]).find(x=>x._doc===id); if(!p) return;
+  limparComposer();
+  editandoId = id; composer.classList.add('editing');
+  const r = document.querySelector(`input[name=cpCat][value="${p.categoria}"]`); if(r) r.checked = true;
+  $('cpTitulo').value = p.titulo || ''; $('cpTexto').value = p.texto || '';
+  $('cpAutor').value = p.autor || ''; $('cpData').value = p.data || hojeISO();
+  $('cpFixado').checked = !!p.fixado;
+  if(p.imagem){ fotoExistente = p.imagem; mostrarFoto(srcImagem(p.imagem), 'Foto atual'); }
+  $('cpPublicar').innerHTML = '<span class="material-symbols-outlined">save</span> Salvar alterações';
+  ajustarAltura(); contar();
+  composer.classList.add('open');
+  composer.scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(()=>{ ajustarAltura(); $('cpTitulo').focus(); }, 60);
+}
+
+async function alternarFixado(id, btn){
+  const p = (DB_POSTS||[]).find(x=>x._doc===id); if(!p || !dbRef) return;
+  btn.disabled = true;
+  try { await dbRef.collection('posts').doc(id).update({ fixado: !p.fixado }); toast(p.fixado ? 'Post desafixado' : 'Fixado no topo ✓'); }
+  catch(e){ toast(erroAmigavel(e)); btn.disabled = false; }
+}
+
+async function apagarPost(id, btn){
+  const p = (DB_POSTS||[]).find(x=>x._doc===id); if(!p || !dbRef) return;
+  if(!confirm(`Excluir o post "${p.titulo}"? Ele some do feed de todo mundo.`)) return;
+  btn.disabled = true;
+  try {
+    await dbRef.collection('posts').doc(id).delete();
+    if(p.imagem && /^[0-9a-f]{32}$/.test(p.imagem) && assetsRef) assetsRef.delete(p.imagem).catch(()=>{});
+    if(editandoId === id) fecharComposer(true);
+    toast('Post excluído');
+  } catch(e){ toast(erroAmigavel(e)); btn.disabled = false; }
+}
+
+$('cpOpenBtn').addEventListener('click', abrirComposer);
+$('cpClose').addEventListener('click', ()=>fecharComposer(false));
+$('cpPublicar').addEventListener('click', publicar);
+$('cpTexto').addEventListener('input', ()=>{ ajustarAltura(); contar(); });
+$('cpFotoBtn').addEventListener('click', ()=>$('cpFoto').click());
+$('cpFoto').addEventListener('change', e=>carregarFoto(e.target.files[0]));
+$('cpFotoRemove').addEventListener('click', removerFoto);
+document.querySelectorAll('.cp-tabs button').forEach(b=>b.addEventListener('click', ()=>trocarAba(b.dataset.tab)));
+document.querySelectorAll('.cp-tool[data-emoji]').forEach(b=>b.addEventListener('click', ()=>{
+  const t = $('cpTexto'), e = b.dataset.emoji, i = t.selectionStart ?? t.value.length;
+  t.value = t.value.slice(0,i) + e + t.value.slice(t.selectionEnd ?? i);
+  t.focus(); t.selectionStart = t.selectionEnd = i + e.length; ajustarAltura(); contar();
+}));
+composer.addEventListener('keydown', e=>{ if((e.ctrlKey||e.metaKey) && e.key==='Enter'){ e.preventDefault(); publicar(); } });
+
+/* ---- modo arquivo: gera o bloco pronto para colar na lista POSTS ---- */
+function slug(nome){
+  const base = (nome||'foto').replace(/\.[^.]+$/,'').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'foto';
+  return base.slice(0,50) + '.jpg';
+}
+function blobParaDataURL(blob){
+  return new Promise((ok,erro)=>{ const r = new FileReader(); r.onload = ()=>ok(r.result); r.onerror = erro; r.readAsDataURL(blob); });
+}
+async function publicarNoArquivo(p){
+  if(fotoNova){
+    p.imagem = 'fotos/' + slug(fotoNova.nome);
+    try { p.imagemPreview = await blobParaDataURL(fotoNova.blob); } catch(e){}
+  }
+  p._id = 'r' + Date.now();
+  LOCAIS.unshift(p);
+  if(!salvarLocais()){
+    /* foto grande demais para o navegador guardar: mantém o post sem a prévia da foto */
+    const img = p.imagemPreview; delete p.imagemPreview;
+    if(!salvarLocais()){ LOCAIS.shift(); toast('Não deu para guardar o rascunho no navegador'); return; }
+    p._fotoDownload = img;
+  }
+  try { localStorage.setItem(AUTOR_KEY, p.autor); } catch(e){}
+  fecharComposer(true);
+  filtroAtual = 'todos'; aoMudarPosts();
+  abrirModal(p);
+}
+function codigoDoPost(p){
+  const crase = t => t.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$\{/g,'\\${');
+  const linhas = [
+    '  {',
+    `    data: ${JSON.stringify(p.data)},`,
+    `    categoria: ${JSON.stringify(p.categoria)},`,
+    `    titulo: ${JSON.stringify(p.titulo)},`,
+    `    autor: ${JSON.stringify(p.autor)},`,
+    `    fixado: ${p.fixado ? 'true' : 'false'},`
+  ];
+  if(p.imagem) linhas.push(`    imagem: ${JSON.stringify(p.imagem)},`);
+  linhas.push('    texto:', '`' + crase(p.texto) + '`', '  },');
+  return linhas.join('\n');
+}
+function copiar(texto){
+  const ok = ()=>toast('Código copiado ✓');
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(texto).then(ok, ()=>copiarAntigo(texto, ok));
+  } else copiarAntigo(texto, ok);
+}
+function copiarAntigo(texto, ok){
+  const ta = document.createElement('textarea'); ta.value = texto; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); ok(); } catch(e){ toast('Selecione o código e copie com Ctrl + C'); }
+  ta.remove();
+}
+function abrirModal(p){
+  const codigo = codigoDoPost(p);
+  const nomeFoto = p.imagem ? p.imagem.replace('fotos/','') : '';
+  const fotoURL = p.imagemPreview || p._fotoDownload;
+  const passoFoto = p.imagem ? `
+    <li>Suba a foto na pasta <code>fotos</code> do repositório com o nome <code>${esc(nomeFoto)}</code>.
+      ${fotoURL ? `<div class="btn-row"><a class="btn-ghost" href="${fotoURL}" download="${esc(nomeFoto)}"><span class="material-symbols-outlined">download</span>Baixar foto já com esse nome</a></div>` : ''}
+    </li>` : '';
+  $('modalSteps').innerHTML = `
+    <li>Copie o código do post:
+      <div class="codebox"><pre id="modalCode"></pre></div>
+      <div class="btn-row"><button type="button" class="btn-ghost" id="btnCopiar"><span class="material-symbols-outlined">content_copy</span>Copiar código</button></div>
+    </li>
+    <li>No <code>index.html</code>, procure a linha <code>const POSTS = [</code> e cole logo abaixo dela.</li>
+    ${passoFoto}
+    <li>Salve (commit). Em alguns minutos o post aparece para toda a equipe — aí você pode excluir o rascunho daqui.</li>`;
+  $('modalCode').textContent = codigo;
+  $('btnCopiar').addEventListener('click', ()=>copiar(codigo));
+  $('modal').classList.add('show');
+}
+function fecharModal(){ $('modal').classList.remove('show'); }
+$('modalClose').addEventListener('click', fecharModal);
+$('modalOk').addEventListener('click', fecharModal);
+$('modal').addEventListener('click', e=>{ if(e.target.id==='modal') fecharModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') fecharModal(); });
+
+/* ---- conexão com o portal (posts guardados + quem pode publicar) ---- */
+function aoMudarPosts(){
+  montarFiltros(); render(); atualizarContagem(); montarBoasVindas();
+  if(podeEditar) atualizarAutores();
+}
+async function conectarPortal(){
+  const entrarModoArquivo = ()=>{
+    modoArquivo = true; podeEditar = true; carregando = false;
+    montarComposer(); aoMudarPosts();
+  };
+  if(!window.claude || !window.claude.use){ entrarModoArquivo(); return; }
+  const [db, user] = await Promise.all([window.claude.use('db'), window.claude.use('user')]);
+  if(!db){ entrarModoArquivo(); return; }
+  dbRef = db; userRef = user;
+  podeEditar = user ? await user.canEdit() : false;
+  if(podeEditar){ assetsRef = await window.claude.use('assets'); }
+  montarComposer();
+  db.collection('posts').onSnapshot(snap=>{
+    DB_POSTS = snap.docs.map(d=>({ ...d.data(), _doc: d.id }));
+    carregando = false;
+    aoMudarPosts();
+  }, ()=>{
+    if(DB_POSTS === null){ carregando = false; aoMudarPosts(); }
+  });
+}
+
 /* ---- inicializar ---- */
 montarFiltros();
 render();
@@ -810,6 +1376,7 @@ atualizarContagem();
 montarBoasVindas();
 revelarPorta();
 comemorarAniversarios();
+conectarPortal();
 
 /* marca a visita atual DEPOIS de calcular o que era novo,
    para que na próxima vez o selo "Novo" reflita esta visita */
