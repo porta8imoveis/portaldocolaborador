@@ -280,6 +280,17 @@
   .bday small{color:var(--muted);font-size:12.5px;display:block;}
   .bday b{font-size:14px;color:var(--navy);font-weight:600;}
   .none{color:var(--muted);font-size:13.5px;padding:6px 2px;}
+  /* ---- Quem está de férias ---- */
+  .card.ferias h3 .material-symbols-outlined{color:var(--blue);}
+  .fer-grupo{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 0 2px;}
+  .fer-grupo:first-of-type{margin-top:0;}
+  .fer{display:flex;align-items:center;gap:11px;padding:7px 0;}
+  .fer .avatar{width:40px;height:40px;font-size:14px;flex:none;}
+  .fer b{font-size:14px;color:var(--navy);font-weight:600;display:block;}
+  .fer small{color:var(--muted);font-size:12.5px;display:block;}
+  .fer-agora .avatar{background:var(--green)!important;}
+  .fer-prox .avatar{background:var(--blue)!important;}
+  .fer-nota{margin:10px 0 0;color:var(--muted);font-size:12px;}
   .help p{margin:0 0 12px;color:var(--muted);font-size:13.5px;}
   .help .shortcut{padding:8px 6px;}
   .help .ic{background:var(--green-soft);color:var(--green);}
@@ -596,6 +607,10 @@
         <h3><span class="material-symbols-outlined">cake</span> Aniversariantes do mês</h3>
         <div id="bdays"></div>
       </div>
+      <div class="card ferias" id="feriasCard">
+        <h3><span class="material-symbols-outlined">beach_access</span> Quem está de férias</h3>
+        <div id="feriasLista"></div>
+      </div>
       <div class="card help">
         <h3><span class="material-symbols-outlined">support_agent</span> Precisa de ajuda?</h3>
         <p>Fale com o RH para dúvidas sobre benefícios, folha e documentos.</p>
@@ -787,6 +802,16 @@ const ANIVERSARIANTES = [
   { nome: "Natiely Aparecida da Silva", dia: "12/11" },
   { nome: "Caisa de Oliveira Lopes Portilho", dia: "15/11" },
   { nome: "Amanda Cristina Martins Longhi", dia: "27/11" },
+];
+
+/* ===================== QUEM ESTÁ DE FÉRIAS (edite aqui) =====================
+   Só entram férias JÁ APROVADAS pelo Thiago (o e-mail "APROVADA" foi enviado).
+   Cada pessoa: nome, de e ate (datas no formato "AAAA-MM-DD").
+   Exemplo: { nome: "Maria L.", de: "2026-11-17", ate: "2026-12-02" },
+   O portal mostra sozinho quem está de férias HOJE e quem sai nos próximos
+   45 dias, e esconde quem já voltou — não precisa apagar na data. Não coloque
+   motivo, saldo de dias nem sobrenome completo: o portal é público. */
+const FERIAS = [
 ];
 
 /* ===================== VAGAS & INDICAÇÃO (edite aqui) ===================== */
@@ -1000,6 +1025,42 @@ function montarAniversariantes(){
       <div><b>${a.nome}</b><small>${a.dia}</small></div>
     </div>`;
   }).join('');
+}
+
+/* ---- quem está de férias ---- */
+function montarFerias(){
+  const el = document.getElementById('feriasLista');
+  const JANELA_DIAS = 45;
+  const dia = s => { const [a,m,d] = String(s).split('-').map(Number); return new Date(a, m-1, d); };
+  const fmt = d => String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0');
+  const h = new Date(); const hoje = new Date(h.getFullYear(), h.getMonth(), h.getDate());
+  const limite = new Date(hoje); limite.setDate(limite.getDate() + JANELA_DIAS);
+
+  const itens = FERIAS.map(f => ({ nome:f.nome, de:dia(f.de), ate:dia(f.ate) }))
+    .filter(f => !isNaN(f.de) && !isNaN(f.ate) && f.ate >= hoje);   /* quem já voltou some */
+  const agora = itens.filter(f => f.de <= hoje).sort((a,b)=>a.ate-b.ate);
+  const prox  = itens.filter(f => f.de > hoje && f.de <= limite).sort((a,b)=>a.de-b.de);
+
+  if(!agora.length && !prox.length){
+    el.innerHTML = `<p class="none">Ninguém de férias no momento.</p>`;
+    return;
+  }
+  const linha = (f, classe, texto) => `
+    <div class="fer ${classe}">
+      <div class="avatar">${iniciais(f.nome)}</div>
+      <div><b>${f.nome}</b><small>${texto}</small></div>
+    </div>`;
+  let html = '';
+  if(agora.length){
+    html += `<div class="fer-grupo">De férias agora</div>` +
+      agora.map(f => linha(f, 'fer-agora', `volta após ${fmt(f.ate)}`)).join('');
+  }
+  if(prox.length){
+    html += `<div class="fer-grupo">Próximas férias</div>` +
+      prox.map(f => linha(f, 'fer-prox', `${fmt(f.de)} a ${fmt(f.ate)}`)).join('');
+  }
+  html += `<p class="fer-nota">Para ciência da equipe. Combine demandas e prazos com antecedência.</p>`;
+  el.innerHTML = html;
 }
 
 /* ---- selo "Novo" e contagem no sino ---- */
@@ -1434,6 +1495,7 @@ async function conectarPortal(){
 montarFiltros();
 render();
 montarAniversariantes();
+montarFerias();
 montarVagas();
 atualizarContagem();
 montarBoasVindas();
