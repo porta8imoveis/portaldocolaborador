@@ -793,16 +793,24 @@ Obrigado por representarem tão bem a Porta 8!`
   }
 ];
 
-/* Aniversariantes do mês. Deixe a lista vazia [] quando não houver.
-   Cada pessoa: nome, dia e (opcional) foto.
-   A foto funciona igual à dos posts: suba o arquivo na pasta "fotos" e use
-   foto: "fotos/nome.jpg". Sem foto, aparecem as iniciais coloridas.
-   Quando houver alguém aqui, o portal solta um confete ao abrir. 🎉 */
-const ANIVERSARIANTES = [
+/* Aniversariantes do mês — ATUALIZAÇÃO AUTOMÁTICA.
+   Ao abrir, o portal lê a lista do mês no endereço ANIVERSARIANTES_URL (abaixo),
+   que é alimentado todo dia pela planilha de colaboradores (só quem tem Status
+   "Ativo"). Só nome curto e dia/mês — nunca o ano de nascimento.
+   A lista a seguir é só RESERVA, usada se o endereço estiver fora do ar. Ela mostra
+   apenas quem faz aniversário no mês atual, então não precisa apagar nada.
+   Cada pessoa: nome, dia e (opcional) foto. Quando houver alguém, o portal solta
+   um confete ao abrir. 🎉 */
+const ANIVERSARIANTES_URL = "https://script.google.com/macros/s/AKfycbyjQTTbUoxzK1SUXVx7yC_GM30_fU-gqEN7jxkNkxbXxI7qVXhWh7iu2m8Y6slkwusF/exec";
+let ANIVERSARIANTES = [
   { nome: "Natiely Aparecida da Silva", dia: "12/11" },
   { nome: "Caisa de Oliveira Lopes Portilho", dia: "15/11" },
   { nome: "Amanda Cristina Martins Longhi", dia: "27/11" },
 ];
+(function(){ /* reserva: só o mês atual */
+  const mes = new Date().getMonth() + 1;
+  ANIVERSARIANTES = ANIVERSARIANTES.filter(a => Number(String(a.dia).split('/')[1]) === mes);
+})();
 
 /* ===================== QUEM ESTÁ DE FÉRIAS (edite aqui) =====================
    Só entram férias JÁ APROVADAS pelo Thiago (o e-mail "APROVADA" foi enviado).
@@ -1012,6 +1020,7 @@ function montarAniversariantes(){
   const card = document.getElementById('bdayCard');
   if(!ANIVERSARIANTES.length){
     el.innerHTML = `<p class="none">Não há aniversariantes este mês.</p>`;
+    card.classList.remove('festivo');
     return;
   }
   card.classList.add('festivo');
@@ -1061,6 +1070,23 @@ function montarFerias(){
   }
   html += `<p class="fer-nota">Para ciência da equipe. Combine demandas e prazos com antecedência.</p>`;
   el.innerHTML = html;
+}
+
+/* ---- aniversariantes: busca a lista do mês (atualiza sozinha) ---- */
+async function atualizarAniversariantes(){
+  if(!ANIVERSARIANTES_URL) return;
+  try{
+    const ctl = new AbortController();
+    const t = setTimeout(()=>ctl.abort(), 8000);
+    const r = await fetch(ANIVERSARIANTES_URL, { signal: ctl.signal });
+    clearTimeout(t);
+    if(!r.ok) return;
+    const j = await r.json();
+    if(!j || !Array.isArray(j.aniversariantes)) return;
+    ANIVERSARIANTES = j.aniversariantes.filter(a => a && a.nome && a.dia);
+    montarAniversariantes();
+    comemorarAniversarios();
+  }catch(e){ /* fora do ar: continua a lista reserva escrita no código */ }
 }
 
 /* ---- selo "Novo" e contagem no sino ---- */
@@ -1502,6 +1528,7 @@ montarBoasVindas();
 revelarPorta();
 comemorarAniversarios();
 conectarPortal();
+atualizarAniversariantes();
 
 /* marca a visita atual DEPOIS de calcular o que era novo,
    para que na próxima vez o selo "Novo" reflita esta visita */
